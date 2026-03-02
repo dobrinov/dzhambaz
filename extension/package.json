@@ -1,0 +1,28 @@
+{
+  "name": "wheelerdealer-extension",
+  "displayName": "WheelerDealer",
+  "version": "0.1.0",
+  "description": "Market analytics for Bulgarian car listing sites",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build"
+  },
+  "dependencies": {
+    "@plasmohq/storage": "^1.13.0",
+    "plasmo": "^0.90.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.6.0"
+  },
+  "manifest": {
+    "host_permissions": [
+      "*://www.mobile.bg/*",
+      "*://www.cars.bg/*"
+    ]
+  }
+}
