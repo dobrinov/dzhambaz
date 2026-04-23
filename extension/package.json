@@ -1,8 +1,8 @@
 {
-  "name": "pretseni-extension",
-  "displayName": "Прецени",
+  "name": "avto-analiz-extension",
+  "displayName": "Авто Анализ",
   "version": "0.1.0",
-  "description": "Прецени истинската пазарна цена на колата си от mobile.bg и cars.bg",
+  "description": "Пазарен анализ и оценка на реалната стойност на вашия автомобил",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build"

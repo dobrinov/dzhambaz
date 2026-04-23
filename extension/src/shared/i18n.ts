@@ -43,8 +43,8 @@ const translations = {
   source: { en: "Source", bg: "Източник" },
   title: { en: "Title", bg: "Заглавие" },
   noDataYet: {
-    en: "No data yet. Visit mobile.bg or cars.bg search pages.",
-    bg: "Няма данни. Посетете търсене в mobile.bg или cars.bg.",
+    en: "No data yet. Open a car listings search page.",
+    bg: "Няма данни. Отворете страница с резултати от търсене на автомобили.",
   },
 
   // Price my car tab
