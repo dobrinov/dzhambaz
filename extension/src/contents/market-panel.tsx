@@ -25,6 +25,11 @@ import {
   detectTotalPages,
   matchesModel,
 } from "~shared/cross-site"
+import {
+  type EstimateInputs,
+  DEFAULT_INPUTS,
+  estimateCarPrice,
+} from "~shared/estimate"
 
 export const config: PlasmoCSConfig = {
   matches: ["*://www.mobile.bg/*", "*://www.cars.bg/*"],
@@ -204,13 +209,80 @@ export const getStyle = () => {
       position: absolute; top: -1px; width: 4px; height: 8px;
       border-radius: 1px; transform: translateX(-2px);
     }
+
+    .wd-field { margin-bottom: 10px; }
+    .wd-field-label {
+      display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;
+    }
+    .wd-input {
+      width: 100%; box-sizing: border-box; padding: 6px 8px;
+      background: #0f172a; color: #e2e8f0; border: 1px solid #334155;
+      border-radius: 4px; font-size: 12px; font-family: inherit;
+      font-variant-numeric: tabular-nums;
+    }
+    .wd-input:focus { outline: none; border-color: #38bdf8; }
+    .wd-slider {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      height: 4px; background: #334155; border-radius: 2px; outline: none;
+      margin: 6px 0 2px;
+    }
+    .wd-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #38bdf8; cursor: pointer; border: 2px solid #0f172a;
+    }
+    .wd-slider-ticks {
+      display: flex; justify-content: space-between;
+      font-size: 9px; color: #64748b;
+    }
+    .wd-estimate-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border: 1px solid #334155; border-radius: 6px;
+      padding: 12px; margin-top: 8px;
+    }
+    .wd-estimate-headline {
+      display: flex; align-items: baseline; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .wd-estimate-headline-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+      color: #94a3b8;
+    }
+    .wd-estimate-headline-value {
+      font-size: 24px; font-weight: 700; color: #38bdf8;
+      font-variant-numeric: tabular-nums;
+    }
+    .wd-tier-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 8px; border-radius: 4px; margin-bottom: 2px;
+      font-size: 12px;
+    }
+    .wd-tier-row-active {
+      background: #38bdf815; border: 1px solid #38bdf840;
+    }
+    .wd-tier-label { color: #cbd5e1; }
+    .wd-tier-value {
+      font-weight: 600; color: #e2e8f0;
+      font-variant-numeric: tabular-nums;
+    }
+    .wd-estimate-meta {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+      font-size: 10px;
+    }
+    .wd-meta-chip {
+      padding: 2px 8px; border-radius: 10px;
+      background: #33415580; color: #cbd5e1;
+    }
+    .wd-meta-chip-low { background: #dc262620; color: #f87171; }
+    .wd-meta-chip-med { background: #d9770620; color: #fbbf24; }
+    .wd-meta-chip-high { background: #16a34a20; color: #4ade80; }
   `
   return style
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
-type Tab = "stats" | "listings"
+type Tab = "stats" | "listings" | "price"
 type SortKey = "price" | "year" | "mileage"
 type SortDir = "asc" | "desc"
 
@@ -369,6 +441,10 @@ export default function MarketPanel() {
   const [showAll, setShowAll] = useState(false)
   const crawlingRef = useRef(false)
   const [lang, setLang] = useStorage<Lang>("wd-lang", DEFAULT_LANG)
+  const [estimateInputs, setEstimateInputs] = useStorage<EstimateInputs>(
+    "wd-estimate-inputs",
+    DEFAULT_INPUTS
+  )
 
   const allListings = useMemo(
     () => [...currentListings, ...otherListings],
@@ -378,6 +454,17 @@ export default function MarketPanel() {
     () => (allListings.length >= 2 ? computeStats(allListings) : null),
     [allListings]
   )
+  const estimate = useMemo(
+    () => estimateCarPrice(allListings, estimateInputs ?? DEFAULT_INPUTS),
+    [allListings, estimateInputs]
+  )
+
+  function updateInput<K extends keyof EstimateInputs>(
+    key: K,
+    value: EstimateInputs[K]
+  ) {
+    setEstimateInputs({ ...(estimateInputs ?? DEFAULT_INPUTS), [key]: value })
+  }
 
   // Keep storage in sync so listing badges use the same combined data
   useEffect(() => {
@@ -675,6 +762,11 @@ export default function MarketPanel() {
           onClick={() => setTab("listings")}>
           {t("listings", lang)} ({allListings.length})
         </button>
+        <button
+          className={`wd-tab ${tab === "price" ? "wd-tab-active" : ""}`}
+          onClick={() => setTab("price")}>
+          {t("priceMyCar", lang)}
+        </button>
       </div>
       <div className="wd-body">
         {/* Progress bars */}
@@ -842,7 +934,263 @@ export default function MarketPanel() {
             )}
           </>
         )}
+
+        {tab === "price" && (
+          <PriceTab
+            inputs={estimateInputs ?? DEFAULT_INPUTS}
+            updateInput={updateInput}
+            estimate={estimate}
+            stats={combinedStats}
+            lang={lang}
+            haveListings={allListings.length > 0}
+          />
+        )}
       </div>
     </div>
+  )
+}
+
+// ── Price tab ───────────────────────────────────────────────────────────────
+
+function PriceTab({
+  inputs,
+  updateInput,
+  estimate,
+  stats,
+  lang,
+  haveListings,
+}: {
+  inputs: EstimateInputs
+  updateInput: <K extends keyof EstimateInputs>(k: K, v: EstimateInputs[K]) => void
+  estimate: ReturnType<typeof estimateCarPrice>
+  stats: ReturnType<typeof computeStats> | null
+  lang: Lang
+  haveListings: boolean
+}) {
+  const mileageStr = inputs.mileageKm === null ? "" : String(inputs.mileageKm)
+  const yearStr = inputs.year === null ? "" : String(inputs.year)
+
+  function parseNum(s: string): number | null {
+    const n = parseInt(s.replace(/\D+/g, ""), 10)
+    return Number.isFinite(n) && n > 0 ? n : null
+  }
+
+  const confidenceChipClass =
+    estimate?.confidence === "high"
+      ? "wd-meta-chip-high"
+      : estimate?.confidence === "medium"
+      ? "wd-meta-chip-med"
+      : "wd-meta-chip-low"
+
+  const confidenceLabel =
+    estimate?.confidence === "high"
+      ? t("confidenceHigh", lang)
+      : estimate?.confidence === "medium"
+      ? t("confidenceMedium", lang)
+      : t("confidenceLow", lang)
+
+  return (
+    <>
+      <div className="wd-section-title">{t("yourCar", lang)}</div>
+
+      <div className="wd-field">
+        <label className="wd-field-label">{t("yourMileage", lang)}</label>
+        <input
+          type="text"
+          inputMode="numeric"
+          className="wd-input"
+          value={mileageStr}
+          placeholder="150000"
+          onChange={(e) => updateInput("mileageKm", parseNum(e.target.value))}
+        />
+      </div>
+
+      <div className="wd-field">
+        <label className="wd-field-label">{t("yourYear", lang)}</label>
+        <input
+          type="text"
+          inputMode="numeric"
+          className="wd-input"
+          value={yearStr}
+          placeholder="2015"
+          onChange={(e) => updateInput("year", parseNum(e.target.value))}
+        />
+      </div>
+
+      <div className="wd-field">
+        <label className="wd-field-label">{t("urgency", lang)}</label>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          className="wd-slider"
+          value={inputs.urgency}
+          onChange={(e) => updateInput("urgency", parseInt(e.target.value, 10))}
+        />
+        <div className="wd-slider-ticks">
+          <span>{t("urgencyPatient", lang)}</span>
+          <span>{t("urgencyBalanced", lang)}</span>
+          <span>{t("urgencyUrgent", lang)}</span>
+        </div>
+      </div>
+
+      <div className="wd-field">
+        <label className="wd-field-label">{t("condition", lang)}</label>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          className="wd-slider"
+          value={inputs.condition}
+          onChange={(e) => updateInput("condition", parseInt(e.target.value, 10))}
+        />
+        <div className="wd-slider-ticks">
+          <span>{t("conditionPoor", lang)}</span>
+          <span>{t("conditionExcellent", lang)}</span>
+        </div>
+      </div>
+
+      <div className="wd-field">
+        <label className="wd-field-label">{t("extras", lang)}</label>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          className="wd-slider"
+          value={inputs.extras}
+          onChange={(e) => updateInput("extras", parseInt(e.target.value, 10))}
+        />
+        <div className="wd-slider-ticks">
+          <span>{t("extrasBare", lang)}</span>
+          <span>{t("extrasLoaded", lang)}</span>
+        </div>
+      </div>
+
+      {inputs.mileageKm === null ? (
+        <div className="wd-no-data" style={{ marginTop: 8 }}>
+          {t("enterMileage", lang)}
+        </div>
+      ) : !estimate ? (
+        <div className="wd-no-data" style={{ marginTop: 8 }}>
+          {haveListings ? t("notEnoughData", lang) : t("navigateToSearch", lang)}
+        </div>
+      ) : (
+        <div className="wd-estimate-card">
+          <div className="wd-estimate-headline">
+            <span className="wd-estimate-headline-label">
+              {t("recommendedAsk", lang)}
+            </span>
+            <span className="wd-estimate-headline-value">
+              €{fmt(estimate.recommendedPrice)}
+            </span>
+          </div>
+
+          <div
+            className={`wd-tier-row ${
+              estimate.recommendedTier === "quick" ? "wd-tier-row-active" : ""
+            }`}>
+            <span className="wd-tier-label">{t("quickSale", lang)}</span>
+            <span className="wd-tier-value">€{fmt(estimate.quickSale)}</span>
+          </div>
+          <div
+            className={`wd-tier-row ${
+              estimate.recommendedTier === "fair" ? "wd-tier-row-active" : ""
+            }`}>
+            <span className="wd-tier-label">{t("fairAsk", lang)}</span>
+            <span className="wd-tier-value">€{fmt(estimate.fairAsk)}</span>
+          </div>
+          <div
+            className={`wd-tier-row ${
+              estimate.recommendedTier === "patient" ? "wd-tier-row-active" : ""
+            }`}>
+            <span className="wd-tier-label">{t("patientAsk", lang)}</span>
+            <span className="wd-tier-value">€{fmt(estimate.patientAsk)}</span>
+          </div>
+
+          <PriceScale
+            price={estimate.recommendedPrice}
+            stats={stats?.price ?? null}
+            color="#38bdf8"
+          />
+
+          <div className="wd-estimate-meta">
+            <span className={`wd-meta-chip ${confidenceChipClass}`}>
+              {confidenceLabel}
+            </span>
+            <span className="wd-meta-chip">
+              {t("basedOn", lang)} {estimate.comparablesCount}{" "}
+              {t("comparables", lang)}
+            </span>
+            {estimate.yearBand !== null ? (
+              <span className="wd-meta-chip">
+                ±{estimate.yearBand} {t("yearBandApplied", lang)}
+              </span>
+            ) : inputs.year !== null ? (
+              <span className="wd-meta-chip">{t("yearBandDropped", lang)}</span>
+            ) : null}
+            {estimate.perKmDepreciation !== null && (
+              <span className="wd-meta-chip">
+                {t("perKmDepreciation", lang)}: €
+                {estimate.perKmDepreciation.toFixed(3)}
+                {t("perKmUnit", lang)}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
+      {estimate && estimate.nearest.length > 0 && (
+        <>
+          <div className="wd-section-title" style={{ marginTop: 14 }}>
+            {t("similarListings", lang)}
+          </div>
+          <div className="wd-listings">
+            {estimate.nearest.map((listing) => {
+              const isMobile = listing.source === "mobile.bg"
+              return (
+                <a
+                  key={`est-${listing.source}-${listing.id}`}
+                  className="wd-listing-row"
+                  href={listing.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    window.open(listing.url, "_blank")
+                  }}>
+                  <span
+                    className="wd-listing-source"
+                    style={{
+                      background: isMobile ? "#3b82f620" : "#8b5cf620",
+                      color: isMobile ? "#3b82f6" : "#8b5cf6",
+                    }}>
+                    {isMobile ? "M" : "C"}
+                  </span>
+                  <div className="wd-listing-info">
+                    <div className="wd-listing-title">{listing.title}</div>
+                    <div className="wd-listing-meta">
+                      {[
+                        listing.year,
+                        listing.mileageKm !== null
+                          ? `${fmt(listing.mileageKm)} km`
+                          : null,
+                        listing.fuelType,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                    </div>
+                  </div>
+                  <span className="wd-listing-price">
+                    {listing.priceEur !== null
+                      ? `€${fmt(listing.priceEur)}`
+                      : "—"}
+                  </span>
+                </a>
+              )
+            })}
+          </div>
+        </>
+      )}
+    </>
   )
 }
