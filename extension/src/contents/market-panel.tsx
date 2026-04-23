@@ -561,7 +561,7 @@ export default function MarketPanel() {
         all.push(...pageListings)
         setCurrentListings([...all])
       } catch (err) {
-        console.warn(`[WheelerDealer] ${currentSite} page ${page} failed:`, err)
+        console.warn(`[Прецени] ${currentSite} page ${page} failed:`, err)
       }
       setCurrentProgress({ site: currentSite, current: page, total: totalPages, done: false })
       if (page < totalPages) await wait(DELAY_MS)
@@ -592,7 +592,7 @@ export default function MarketPanel() {
         await crawlMobileBg(filters, allOther)
       }
     } catch (err) {
-      console.warn(`[WheelerDealer] Cross-site crawl failed:`, err)
+      console.warn(`[Прецени] Cross-site crawl failed:`, err)
     }
 
     if (allOther.length > 0) {
@@ -651,7 +651,7 @@ export default function MarketPanel() {
         results.push(...listings)
         setOtherListings([...results])
       } catch (err) {
-        console.warn(`[WheelerDealer] cars.bg page ${page} failed:`, err)
+        console.warn(`[Прецени] cars.bg page ${page} failed:`, err)
       }
       setOtherProgress({ site: "cars.bg", current: page, total: totalPages, done: false })
       await wait(DELAY_MS)
@@ -683,7 +683,7 @@ export default function MarketPanel() {
         results.push(...listings)
         setOtherListings([...results])
       } catch (err) {
-        console.warn(`[WheelerDealer] mobile.bg page ${page} failed:`, err)
+        console.warn(`[Прецени] mobile.bg page ${page} failed:`, err)
       }
       setOtherProgress({ site: "mobile.bg", current: page, total: totalPages, done: false })
       await wait(DELAY_MS)
@@ -744,7 +744,7 @@ export default function MarketPanel() {
     <div className={`wd-panel ${collapsed ? "wd-collapsed" : ""}`}>
       <div className="wd-header" onClick={() => setCollapsed(!collapsed)}>
         <div className="wd-header-left">
-          <span className="wd-title">WheelerDealer</span>
+          <span className="wd-title">Прецени</span>
           <button className="wd-lang-btn" onClick={toggleLang}>
             {lang === "en" ? "BG" : "EN"}
           </button>

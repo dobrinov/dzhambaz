@@ -1,8 +1,8 @@
 {
-  "name": "wheelerdealer-extension",
-  "displayName": "WheelerDealer",
+  "name": "pretseni-extension",
+  "displayName": "Прецени",
   "version": "0.1.0",
-  "description": "Market analytics for Bulgarian car listing sites",
+  "description": "Прецени истинската пазарна цена на колата си от mobile.bg и cars.bg",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build"

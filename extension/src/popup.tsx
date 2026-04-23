@@ -87,7 +87,7 @@ export default function Popup() {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.title}>WheelerDealer</h1>
+        <h1 style={styles.title}>Прецени</h1>
         <button
           style={styles.langBtn}
           onClick={() => setLang(lang === "en" ? "bg" : "en")}>
