@@ -276,6 +276,18 @@ export const getStyle = () => {
     .wd-meta-chip-low { background: #dc262620; color: #f87171; }
     .wd-meta-chip-med { background: #d9770620; color: #fbbf24; }
     .wd-meta-chip-high { background: #16a34a20; color: #4ade80; }
+
+    .wd-welcome {
+      padding: 28px 20px; text-align: center;
+    }
+    .wd-welcome-title {
+      font-size: 14px; font-weight: 600; color: #e2e8f0;
+      margin-bottom: 8px;
+    }
+    .wd-welcome-body {
+      font-size: 12px; color: #94a3b8; line-height: 1.5;
+    }
+    .wd-collapsed .wd-welcome { display: none; }
   `
   return style
 }
@@ -307,6 +319,13 @@ function detectSite(): "mobile.bg" | "cars.bg" | null {
   if (host.includes("mobile.bg")) return "mobile.bg"
   if (host.includes("cars.bg")) return "cars.bg"
   return null
+}
+
+function isSearchResultsPage(site: "mobile.bg" | "cars.bg"): boolean {
+  const path = window.location.pathname.toLowerCase()
+  if (site === "mobile.bg") return path.startsWith("/search")
+  if (site === "cars.bg") return path.includes("carslist")
+  return false
 }
 
 function theOtherSite(s: "mobile.bg" | "cars.bg"): "mobile.bg" | "cars.bg" {
@@ -432,6 +451,7 @@ export default function MarketPanel() {
   const [collapsed, setCollapsed] = useState(false)
   const [tab, setTab] = useState<Tab>("stats")
   const [site, setSite] = useState<"mobile.bg" | "cars.bg" | null>(null)
+  const [isSearchPage, setIsSearchPage] = useState(false)
   const [currentListings, setCurrentListings] = useState<CarListing[]>([])
   const [otherListings, setOtherListings] = useState<CarListing[]>([])
   const [currentProgress, setCurrentProgress] = useState<SiteCrawlProgress | null>(null)
@@ -494,18 +514,20 @@ export default function MarketPanel() {
     if (!detectedSite) return
     setSite(detectedSite)
 
+    const livePage =
+      detectedSite === "mobile.bg" ? parseMobileBgListings() : parseCarsBgListings()
+
+    const onSearchPage = livePage.length > 0 || isSearchResultsPage(detectedSite)
+    setIsSearchPage(onSearchPage)
+    if (!onSearchPage) return
+
     if (crawlingRef.current) return
     crawlingRef.current = true
 
-    // Parse current page from live DOM as initial data
-    const livePage =
-      detectedSite === "mobile.bg" ? parseMobileBgListings() : parseCarsBgListings()
     setCurrentListings(livePage)
 
-    // Extract full search filters before starting crawls
     const filters = extractSearchFilters(detectedSite)
 
-    // Crawl current site (all pages starting from 1) and other site in parallel
     if (livePage.length > 0) {
       crawlCurrentSite(detectedSite)
       crawlOtherSite(detectedSite, filters)
@@ -751,6 +773,13 @@ export default function MarketPanel() {
         </div>
         <span className="wd-toggle">{collapsed ? "+" : "–"}</span>
       </div>
+      {!isSearchPage ? (
+        <div className="wd-welcome">
+          <div className="wd-welcome-title">{t("welcomeTitle", lang)}</div>
+          <div className="wd-welcome-body">{t("welcomeBody", lang)}</div>
+        </div>
+      ) : (
+      <>
       <div className="wd-tabs">
         <button
           className={`wd-tab ${tab === "stats" ? "wd-tab-active" : ""}`}
@@ -946,6 +975,8 @@ export default function MarketPanel() {
           />
         )}
       </div>
+      </>
+      )}
     </div>
   )
 }

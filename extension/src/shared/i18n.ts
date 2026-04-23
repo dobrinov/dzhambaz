@@ -78,6 +78,13 @@ const translations = {
   similarListings: { en: "Most similar listings", bg: "Най-подобни обяви" },
   enterMileage: { en: "Enter your mileage to get a recommendation", bg: "Въведете пробег за препоръка" },
   notEnoughData: { en: "Not enough comparables yet — wait for the crawl to finish", bg: "Недостатъчно данни — изчакайте обходването" },
+
+  // Welcome / empty state
+  welcomeTitle: { en: "Start with a search", bg: "Започнете с търсене" },
+  welcomeBody: {
+    en: "Pick a make, model, and filters. We'll analyze the matching listings and recommend a fair price for your car.",
+    bg: "Изберете марка, модел и филтри. Ще анализираме подходящите обяви и ще ви предложим справедлива цена за вашия автомобил.",
+  },
 } as const
 
 export type TranslationKey = keyof typeof translations
