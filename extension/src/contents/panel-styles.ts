@@ -1,12 +1,12 @@
 export const PANEL_CSS = `
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
     .dbz-panel {
       position: fixed;
       top: 0;
       right: 0;
       bottom: 0;
-      z-index: 999999;
+      z-index: 2147483647;
       width: 360px;
       display: flex; flex-direction: column;
       background: #1e293b;
@@ -26,7 +26,7 @@ export const PANEL_CSS = `
     /* Minimized (floating) icon — drags freely, clicks open the drawer */
     .dbz-mini {
       position: fixed;
-      z-index: 999999;
+      z-index: 2147483647;
       width: 48px; height: 48px;
       border-radius: 50%;
       background: #1e293b;
@@ -71,12 +71,13 @@ export const PANEL_CSS = `
       flex-shrink: 0;
     }
     .dbz-brand {
-      font-family: "Caveat", "Georgia", serif;
+      font-family: "Fraunces", "Georgia", "Times New Roman", serif;
       font-weight: 700;
-      font-size: 22px;
+      font-size: 18px;
       color: #38bdf8;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.015em;
       line-height: 1;
+      font-variation-settings: "opsz" 96;
     }
     .dbz-head-actions { display: flex; align-items: center; gap: 6px; }
     .dbz-lang {
