@@ -1,5 +1,5 @@
 export const PANEL_CSS = `
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Unbounded:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
     .dbz-panel {
       position: fixed;
@@ -71,11 +71,13 @@ export const PANEL_CSS = `
       flex-shrink: 0;
     }
     .dbz-brand {
-      font-family: "Unbounded", "Segoe UI", system-ui, sans-serif;
+      font-family: 'Caveat', cursive;
       font-weight: 700;
-      font-size: 15px;
+      display: inline-block;
+      transform: translateY(0.04em);
+      letter-spacing: -0.01em;
+      font-size: 22px;
       color: #38bdf8;
-      letter-spacing: -0.02em;
       line-height: 1;
     }
     .dbz-head-actions { display: flex; align-items: center; gap: 6px; }
@@ -109,6 +111,91 @@ export const PANEL_CSS = `
       border-color: #334155;
     }
     .dbz-hide-btn svg { width: 14px; height: 14px; display: block; }
+
+    /* Settings view */
+    .dbz-settings { padding: 6px 4px 14px; }
+    .dbz-settings-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 4px 10px 14px;
+      border-bottom: 1px solid #334155;
+      margin: 0 -14px 14px;
+    }
+    .dbz-settings-back {
+      width: 26px; height: 26px; border-radius: 6px;
+      display: grid; place-items: center;
+      background: transparent; border: 1px solid transparent;
+      color: #94a3b8; cursor: pointer;
+      padding: 0; font-family: inherit;
+    }
+    .dbz-settings-back:hover {
+      background: rgba(255,255,255,0.06); color: #e2e8f0; border-color: #334155;
+    }
+    .dbz-settings-title {
+      font-weight: 600; font-size: 15px; color: #e2e8f0;
+      letter-spacing: -0.005em;
+    }
+    .dbz-settings-section {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; color: #64748b;
+      text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;
+      margin: 4px 0 10px 2px;
+    }
+    .dbz-setting {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #334155;
+      border-radius: 9px;
+      margin-bottom: 6px;
+    }
+    .dbz-setting-info { min-width: 0; }
+    .dbz-setting-label {
+      font-size: 12.5px; color: #e2e8f0; font-weight: 500;
+    }
+    .dbz-setting-desc {
+      font-size: 11px; color: #94a3b8; margin-top: 2px; line-height: 1.4;
+    }
+    .dbz-switch {
+      flex-shrink: 0;
+      width: 32px; height: 18px;
+      border-radius: 10px;
+      background: #334155;
+      position: relative;
+      cursor: pointer;
+      border: none; padding: 0;
+      transition: background 0.15s ease;
+    }
+    .dbz-switch::after {
+      content: "";
+      position: absolute; top: 2px; left: 2px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #94a3b8;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .dbz-switch.on { background: rgba(56,189,248,0.25); }
+    .dbz-switch.on::after { transform: translateX(14px); background: #38bdf8; }
+    .dbz-settings-action {
+      margin-top: 14px;
+      width: 100%;
+      padding: 9px 12px;
+      background: rgba(248,113,113,0.08);
+      border: 1px solid rgba(248,113,113,0.3);
+      color: #f87171;
+      border-radius: 8px;
+      font-family: inherit; font-size: 12px; font-weight: 500;
+      cursor: pointer;
+    }
+    .dbz-settings-action:hover {
+      background: rgba(248,113,113,0.15);
+    }
+    .dbz-settings-foot {
+      margin-top: 12px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9.5px; color: #475569;
+      text-align: center; letter-spacing: 0.04em;
+    }
 
     .dbz-tabs {
       display: flex; padding: 0 8px;

@@ -142,6 +142,41 @@ const translations = {
   yourYearShort: { en: "Year", bg: "Година" },
   optionalShort: { en: "opt.", bg: "опц." },
   confidenceLabel: { en: "Confidence", bg: "Доверие" },
+
+  // Settings
+  settingsTitle: { en: "Settings", bg: "Настройки" },
+  settingsBehavior: { en: "Behavior", bg: "Поведение" },
+  settingsData: { en: "Data", bg: "Данни" },
+  settingAutoOpen: { en: "Auto-open on new search", bg: "Отвори при ново търсене" },
+  settingAutoOpenDesc: {
+    en: "When you change the search criteria, the drawer opens automatically.",
+    bg: "При промяна на търсенето, панелът се отваря автоматично.",
+  },
+  settingCrossSite: { en: "Scan the other site too", bg: "Сканирай и другия сайт" },
+  settingCrossSiteDesc: {
+    en: "Also crawl mobile.bg when you're on cars.bg, and vice versa.",
+    bg: "Обходи и mobile.bg когато си на cars.bg, и обратно.",
+  },
+  settingNewTab: { en: "Open listings in a new tab", bg: "Обяви в нов таб" },
+  settingNewTabDesc: {
+    en: "Off — clicking a listing replaces the current tab.",
+    bg: "Изкл. — кликването зарежда обявата в текущия таб.",
+  },
+  settingOutlierAlerts: { en: "Show outlier alerts", bg: "Показвай аутлайер флагове" },
+  settingOutlierAlertsDesc: {
+    en: "Highlight suspicious listings in the Stats tab.",
+    bg: "Отбелязва подозрителни обяви в таба Статистика.",
+  },
+  settingClearData: { en: "Clear cached listings", bg: "Изчисти запазените обяви" },
+  settingClearDataDesc: {
+    en: "Forgets the last crawl so the next search starts fresh.",
+    bg: "Забравя последното обхождане — следващото ще започне на чисто.",
+  },
+  settingsBackLabel: { en: "Back", bg: "Назад" },
+  settingsFoot: {
+    en: "Preferences stored locally — never transmitted.",
+    bg: "Настройките се пазят локално — не се изпращат никъде.",
+  },
 } as const
 
 export type TranslationKey = keyof typeof translations

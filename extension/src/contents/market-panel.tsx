@@ -113,6 +113,21 @@ function parseHtml(html: string): Document {
   return new DOMParser().parseFromString(html, "text/html")
 }
 
+/**
+ * Stable key for a search: site + sorted filter entries. Pagination-independent.
+ * Changes when the user picks a different make/model/filter; stays stable
+ * when they move between pages of the same search.
+ */
+function searchKeyOf(site: string, filters: SearchFilters | null): string {
+  if (!filters) return site
+  const parts: string[] = [site]
+  const entries = Object.entries(filters)
+    .filter(([, v]) => v !== null && v !== undefined && v !== "")
+    .sort(([a], [b]) => a.localeCompare(b))
+  for (const [k, v] of entries) parts.push(`${k}=${v}`)
+  return parts.join("|")
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
 
 export default function MarketPanel() {
@@ -122,6 +137,17 @@ export default function MarketPanel() {
     null
   )
   const [dragPos, setDragPos] = useState<{ x: number; y: number } | null>(null)
+  const [showSettings, setShowSettings] = useState(false)
+
+  // User preferences
+  const [prefAutoOpen, setPrefAutoOpen] = useStorage<boolean>("wd-pref-auto-open", true)
+  const [prefCrossSite, setPrefCrossSite] = useStorage<boolean>("wd-pref-cross-site", true)
+  const [prefNewTab, setPrefNewTab] = useStorage<boolean>("wd-pref-new-tab", true)
+  const [prefOutlierAlerts, setPrefOutlierAlerts] = useStorage<boolean>(
+    "wd-pref-outlier-alerts",
+    true
+  )
+  const [lastSearchKey, setLastSearchKey] = useStorage<string | null>("wd-last-search", null)
   const [tab, setTab] = useState<Tab>("stats")
   const [site, setSite] = useState<"mobile.bg" | "cars.bg" | null>(null)
   const [isSearchPage, setIsSearchPage] = useState(false)
@@ -275,9 +301,19 @@ export default function MarketPanel() {
 
     const filters = extractSearchFilters(detectedSite)
 
+    // Detect "new search": stable key derived from site + filters. Pagination
+    // within the same search keeps the key stable; changing make/model/filters
+    // produces a new key. Auto-open the drawer when the key changes (if the
+    // user hasn't disabled that preference).
+    const key = searchKeyOf(detectedSite, filters)
+    if (key !== lastSearchKey) {
+      setLastSearchKey(key)
+      if (prefAutoOpen) setPanelState("open")
+    }
+
     if (livePage.length > 0) {
       crawlCurrentSite(detectedSite)
-      crawlOtherSite(detectedSite, filters)
+      if (prefCrossSite) crawlOtherSite(detectedSite, filters)
     }
   }, [])
 
@@ -504,6 +540,15 @@ export default function MarketPanel() {
           </button>
           <button
             className="dbz-hide-btn"
+            title={t("settingsTitle", lang)}
+            onClick={() => setShowSettings(!showSettings)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="2.5"/>
+              <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+            </svg>
+          </button>
+          <button
+            className="dbz-hide-btn"
             title="Close"
             onClick={() => setPanelState("mini")}>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -513,7 +558,32 @@ export default function MarketPanel() {
         </div>
       </div>
 
-      {!isSearchPage && allListings.length === 0 ? (
+      {showSettings ? (
+        <SettingsView
+          lang={lang}
+          autoOpen={prefAutoOpen ?? true}
+          setAutoOpen={setPrefAutoOpen}
+          crossSite={prefCrossSite ?? true}
+          setCrossSite={setPrefCrossSite}
+          newTab={prefNewTab ?? true}
+          setNewTab={setPrefNewTab}
+          outlierAlerts={prefOutlierAlerts ?? true}
+          setOutlierAlerts={setPrefOutlierAlerts}
+          onBack={() => setShowSettings(false)}
+          onClearData={async () => {
+            await Promise.all([
+              storage.remove("listings:mobile.bg"),
+              storage.remove("listings:cars.bg"),
+              storage.remove("listings:combined"),
+              storage.remove("wd-last-search"),
+            ])
+            setCurrentListings([])
+            setOtherListings([])
+            setLastSearchKey(null)
+            setShowSettings(false)
+          }}
+        />
+      ) : !isSearchPage && allListings.length === 0 ? (
         <EmptyState lang={lang} />
       ) : (
         <>
@@ -552,6 +622,7 @@ export default function MarketPanel() {
                 priceHist={priceHist}
                 kmHist={kmHist}
                 outlierCount={outlierCount}
+                showOutlierAlert={prefOutlierAlerts ?? true}
                 mobileBgCount={mobileBgCount}
                 carsBgCount={carsBgCount}
                 lang={lang}
@@ -573,6 +644,7 @@ export default function MarketPanel() {
                 outlierCount={outlierCount}
                 showAll={showAll}
                 onShowAll={() => setShowAll(true)}
+                newTab={prefNewTab ?? true}
                 lang={lang}
               />
             )}
@@ -584,6 +656,7 @@ export default function MarketPanel() {
                 estimate={estimate}
                 lang={lang}
                 haveListings={allListings.length > 0}
+                newTab={prefNewTab ?? true}
               />
             )}
           </div>
@@ -661,6 +734,7 @@ function StatsTab({
   priceHist,
   kmHist,
   outlierCount,
+  showOutlierAlert,
   mobileBgCount,
   carsBgCount,
   lang,
@@ -670,6 +744,7 @@ function StatsTab({
   priceHist: Histogram | null
   kmHist: Histogram | null
   outlierCount: number
+  showOutlierAlert: boolean
   mobileBgCount: number
   carsBgCount: number
   lang: Lang
@@ -760,7 +835,7 @@ function StatsTab({
         </>
       )}
 
-      {outlierCount > 0 && (
+      {showOutlierAlert && outlierCount > 0 && (
         <div className="dbz-insight">
           <div className="dbz-insight-icon">⚑</div>
           <div>
@@ -880,6 +955,7 @@ function ListingsTab({
   outlierCount,
   showAll,
   onShowAll,
+  newTab,
   lang,
 }: {
   listings: CarListing[]
@@ -895,6 +971,7 @@ function ListingsTab({
   outlierCount: number
   showAll: boolean
   onShowAll: () => void
+  newTab: boolean
   lang: Lang
 }) {
   const iqrLeft = stats ? ((stats.p25 - stats.min) / (stats.max - stats.min || 1)) * 100 : 25
@@ -945,11 +1022,11 @@ function ListingsTab({
                 key={`${l.source}-${l.id}`}
                 className="dbz-listing"
                 href={l.url}
-                target="_blank"
+                target={newTab ? "_blank" : "_self"}
                 rel="noopener noreferrer"
                 onClick={(e) => {
                   e.preventDefault()
-                  window.open(l.url, "_blank")
+                  window.open(l.url, newTab ? "_blank" : "_self")
                 }}>
                 <div className={`dbz-srcbadge ${isMobile ? "dbz-srcbadge-m" : "dbz-srcbadge-c"}`}>
                   {isMobile ? "m" : "c"}
@@ -1038,12 +1115,14 @@ function PriceTab({
   estimate,
   lang,
   haveListings,
+  newTab,
 }: {
   inputs: EstimateInputs
   updateInput: <K extends keyof EstimateInputs>(k: K, v: EstimateInputs[K]) => void
   estimate: ReturnType<typeof estimateCarPrice>
   lang: Lang
   haveListings: boolean
+  newTab: boolean
 }) {
   const mileageStr = inputs.mileageKm === null ? "" : String(inputs.mileageKm)
   const yearStr = inputs.year === null ? "" : String(inputs.year)
@@ -1153,11 +1232,11 @@ function PriceTab({
                   key={`est-${l.source}-${l.id}`}
                   className="dbz-listing"
                   href={l.url}
-                  target="_blank"
+                  target={newTab ? "_blank" : "_self"}
                   rel="noopener noreferrer"
                   onClick={(e) => {
                     e.preventDefault()
-                    window.open(l.url, "_blank")
+                    window.open(l.url, newTab ? "_blank" : "_self")
                   }}>
                   <div className={`dbz-srcbadge ${isMobile ? "dbz-srcbadge-m" : "dbz-srcbadge-c"}`}>
                     {isMobile ? "m" : "c"}
@@ -1266,6 +1345,104 @@ function clampToViewport(pos: { x: number; y: number }) {
     x: Math.max(4, Math.min(window.innerWidth - MINI_SIZE - 4, pos.x)),
     y: Math.max(4, Math.min(window.innerHeight - MINI_SIZE - 4, pos.y)),
   }
+}
+
+// ── Settings view ──────────────────────────────────────────────────────
+
+function SettingsView({
+  lang,
+  autoOpen, setAutoOpen,
+  crossSite, setCrossSite,
+  newTab, setNewTab,
+  outlierAlerts, setOutlierAlerts,
+  onBack,
+  onClearData,
+}: {
+  lang: Lang
+  autoOpen: boolean
+  setAutoOpen: (v: boolean) => void
+  crossSite: boolean
+  setCrossSite: (v: boolean) => void
+  newTab: boolean
+  setNewTab: (v: boolean) => void
+  outlierAlerts: boolean
+  setOutlierAlerts: (v: boolean) => void
+  onBack: () => void
+  onClearData: () => void
+}) {
+  return (
+    <div className="dbz-body">
+      <div className="dbz-settings-header">
+        <button className="dbz-settings-back" onClick={onBack} title={t("settingsBackLabel", lang)}>
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 3L5 8l5 5"/>
+          </svg>
+        </button>
+        <span className="dbz-settings-title">{t("settingsTitle", lang)}</span>
+      </div>
+
+      <div className="dbz-settings-section">{t("settingsBehavior", lang)}</div>
+      <SettingRow
+        label={t("settingAutoOpen", lang)}
+        desc={t("settingAutoOpenDesc", lang)}
+        value={autoOpen}
+        onChange={setAutoOpen}
+      />
+      <SettingRow
+        label={t("settingNewTab", lang)}
+        desc={t("settingNewTabDesc", lang)}
+        value={newTab}
+        onChange={setNewTab}
+      />
+      <SettingRow
+        label={t("settingOutlierAlerts", lang)}
+        desc={t("settingOutlierAlertsDesc", lang)}
+        value={outlierAlerts}
+        onChange={setOutlierAlerts}
+      />
+
+      <div className="dbz-settings-section" style={{ marginTop: 18 }}>{t("settingsData", lang)}</div>
+      <SettingRow
+        label={t("settingCrossSite", lang)}
+        desc={t("settingCrossSiteDesc", lang)}
+        value={crossSite}
+        onChange={setCrossSite}
+      />
+      <button className="dbz-settings-action" onClick={onClearData}>
+        {t("settingClearData", lang)}
+      </button>
+      <div
+        style={{ fontSize: 11, color: "#64748b", marginTop: 4, lineHeight: 1.4 }}>
+        {t("settingClearDataDesc", lang)}
+      </div>
+
+      <div className="dbz-settings-foot">{t("settingsFoot", lang)}</div>
+    </div>
+  )
+}
+
+function SettingRow({
+  label, desc, value, onChange,
+}: {
+  label: string
+  desc?: string
+  value: boolean
+  onChange: (v: boolean) => void
+}) {
+  return (
+    <div className="dbz-setting">
+      <div className="dbz-setting-info">
+        <div className="dbz-setting-label">{label}</div>
+        {desc && <div className="dbz-setting-desc">{desc}</div>}
+      </div>
+      <button
+        className={`dbz-switch ${value ? "on" : ""}`}
+        role="switch"
+        aria-checked={value}
+        onClick={() => onChange(!value)}
+      />
+    </div>
+  )
 }
 
 function MiniIcon({
