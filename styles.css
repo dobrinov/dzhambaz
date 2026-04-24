@@ -726,3 +726,41 @@ footer { padding: 40px 0; background: var(--ink); color: rgba(255,255,255,.6); f
   .disclaimer-inner { grid-template-columns: 1fr; }
   .screens { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 18px; }
+  .hero { padding: 48px 0 40px; }
+  h1.hero-title {
+    font-size: clamp(28px, 9vw, 40px);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  .hero p.lede { font-size: 17px; }
+  h2 { font-size: clamp(24px, 6.5vw, 30px); overflow-wrap: break-word; }
+  section { padding: 48px 0; }
+  .nav-row { height: 56px; }
+
+  /* Browser mockup: stack site column and extension panel */
+  .browser-body { grid-template-columns: 1fr; min-height: 0; }
+  .site { border-right: 0; border-bottom: 1px solid var(--hair); }
+
+  /* KPI + price tightens up */
+  .kpi-grid { gap: 6px; }
+  .kpi { padding: 8px 10px; }
+  .kpi .v { font-size: 14px; }
+  .price-row { grid-template-columns: 1fr; }
+  .price-card .p { font-size: 20px; }
+
+  /* Disclaimer + footer stack */
+  .disclaimer-inner { gap: 20px; }
+  .tag-note { font-size: 28px; }
+  .footer-row { flex-direction: column; text-align: center; align-items: center; gap: 10px; }
+
+  /* Rate demo padding */
+  .rate-form { padding: 18px; }
+  .rate-result { padding: 20px 18px; }
+
+  /* Supported-sites card shrinks */
+  .supported-card { flex-wrap: wrap; gap: 10px; }
+}
