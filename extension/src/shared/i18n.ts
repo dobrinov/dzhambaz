@@ -85,6 +85,63 @@ const translations = {
     en: "Pick a make, model, and filters. We'll analyze the matching listings and recommend a fair price for your car.",
     bg: "Изберете марка, модел и филтри. Ще анализираме подходящите обяви и ще ви предложим справедлива цена за вашия автомобил.",
   },
+
+  // Empty state (new, redesigned)
+  emptyEyebrow: { en: "Ready to analyze", bg: "Готов за анализ" },
+  emptyTitle: {
+    en: "Tell me what you're<br/><em>hunting</em> for, I'll<br/>find the truth.",
+    bg: "Кажи ми какво<br/><em>търсиш</em>, аз<br/>намирам истината.",
+  },
+  emptyBodyBefore: { en: "Open a search on", bg: "Отвори търсене в" },
+  emptyBodyOr: { en: "or", bg: "или" },
+  emptyBodyAfter: {
+    en: ". Джамбаз will scan every listing, compute the fair price, and flag who's trying to cheat you.",
+    bg: ". Джамбаз ще сканира всичките обяви, ще пресметне справедливата цена и ще флагира кой се опитва да те излъже.",
+  },
+  emptyBullet1: { en: "Median price and distribution", bg: "Медианна цена и разпределение" },
+  emptyBullet2: { en: "Valuation for your car ± confidence", bg: "Оценка за твоята кола ± доверие" },
+  emptyBullet3: { en: "Similar listings, sorted by deal", bg: "Подобни обяви, сортирани по сделка" },
+  emptyBullet4: { en: "Flag for suspiciously low prices", bg: "Флаг за подозрително занижени цени" },
+  emptyFoot: { en: "local analysis · no data to third parties", bg: "локален анализ · без данни към трети страни" },
+
+  // Scan bar
+  scan: { en: "scan", bg: "скан" },
+
+  // Stats tab
+  market: { en: "Market", bg: "Пазар" },
+  base: { en: "Sample", bg: "База" },
+  listingsShort: { en: "listings", bg: "обяви" },
+  rangeShort: { en: "range", bg: "диапазон" },
+  medianYear: { en: "Median year", bg: "Медианна година" },
+
+  // Insight callout
+  insightTitle: { en: "Suspicious listing", bg: "Подозрителна обява" },
+  insightBody1: {
+    en: "listing flagged as an outlier — likely a price typo or scam.",
+    bg: "обява е флагирана като аутлайер — вероятно грешка в цената или скам.",
+  },
+  insightBodyN: {
+    en: "listings flagged as outliers — likely price typos or scams.",
+    bg: "обяви са флагирани като аутлайери — вероятно грешки в цената или скам.",
+  },
+
+  // Listings tab — verdicts
+  under: { en: "under market", bg: "под пазара" },
+  fair: { en: "fair", bg: "справедлива" },
+  over: { en: "over market", bg: "над пазара" },
+  outlier: { en: "outlier", bg: "аутлайер" },
+  sort: { en: "Sort", bg: "Сорт." },
+  sortDeal: { en: "Deal", bg: "Сделка" },
+  filter: { en: "Filter", bg: "Филтър" },
+  filterAll: { en: "All", bg: "Всички" },
+  filterDeals: { en: "Deals", bg: "Сделки" },
+  filterOutliers: { en: "Outliers", bg: "Аутлайери" },
+
+  // Price mine
+  yourMileageShort: { en: "Mileage", bg: "Пробег" },
+  yourYearShort: { en: "Year", bg: "Година" },
+  optionalShort: { en: "opt.", bg: "опц." },
+  confidenceLabel: { en: "Confidence", bg: "Доверие" },
 } as const
 
 export type TranslationKey = keyof typeof translations

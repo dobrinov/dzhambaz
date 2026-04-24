@@ -1,8 +1,8 @@
 {
-  "name": "avto-analiz-extension",
-  "displayName": "Авто Анализ",
+  "name": "dzhambaz-extension",
+  "displayName": "Джамбаз",
   "version": "0.1.0",
-  "description": "Пазарен анализ и оценка на реалната стойност на вашия автомобил",
+  "description": "Истинската пазарна цена на вашия автомобил — директно в браузъра.",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build"
