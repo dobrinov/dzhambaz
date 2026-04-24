@@ -3,31 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Политика за поверителност — Авто Анализ</title>
+<title>Политика за поверителност — Джамбаз</title>
 <link rel="alternate" hreflang="bg" href="privacy.html">
 <link rel="alternate" hreflang="en" href="en/privacy.html">
 <link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="legal-page">
 
-<header>
-  <a class="brand" href="index.html">
-    <img src="icon.png" alt="">
-    <span>Авто Анализ</span>
-  </a>
-  <div class="header-right">
-    <nav>
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">
+      <span><span class="wm-a" style="color:var(--brand);font-size:1.25em">Джамбаз</span></span>
+    </a>
+    <div class="nav-links">
       <a href="index.html">Начало</a>
       <a href="terms.html">Условия</a>
       <a href="support.html">Поддръжка</a>
-    </nav>
-    <div class="lang-switcher" role="group" aria-label="Език">
-      <span class="active" aria-current="true">BG</span>
-      <a href="en/privacy.html" hreflang="en">EN</a>
+      <div class="lang-switcher" role="group" aria-label="Език" data-keep>
+        <span class="active" aria-current="true">BG</span>
+        <a href="en/privacy.html" hreflang="en">EN</a>
+      </div>
     </div>
   </div>
-</header>
+</nav>
 
 <div class="container">
 
@@ -35,13 +37,13 @@
   <p><small>Последна актуализация: 24 април 2026 г.</small></p>
 
   <h2>Обобщение в едно изречение</h2>
-  <p>Авто Анализ не събира, не съхранява и не предава никакви ваши лични данни към външни сървъри.</p>
+  <p>Джамбаз не събира, не съхранява и не предава никакви ваши лични данни към външни сървъри.</p>
 
   <h2>Какви данни обработваме</h2>
   <p>Разширението не изисква регистрация и не събира идентификационни данни. Единствената информация, която се „помни“ между посещенията ви, са стойностите, които сами въвеждате в таба за оценка (пробег, година, състояние, ниво на екстри, бързина на продажба). Тя се съхранява локално в browser storage на вашето устройство.</p>
 
   <h2>Какво вижда разширението</h2>
-  <p>Когато се намирате на страница с резултати от търсене на автомобили, разширението чете публичния HTML на текущата и съседните страници от резултатите, за да изчисли пазарната статистика. Тези заявки се изпращат от вашия браузър и не минават през наши сървъри.</p>
+  <p>Когато се намирате на страница с резултати от търсене на автомобили на mobile.bg или cars.bg, разширението чете публичния HTML на текущата и съседните страници от резултатите, за да изчисли пазарната статистика. Тези заявки се изпращат от вашия браузър и не минават през наши сървъри.</p>
 
   <h2>Какво не правим</h2>
   <ul>
@@ -63,12 +65,14 @@
 </div>
 
 <footer>
-  <div>© 2026 Авто Анализ</div>
-  <div style="margin-top: 8px;">
-    <a href="index.html">Начало</a> ·
-    <a href="terms.html">Условия</a> ·
-    <a href="support.html">Поддръжка</a> ·
-    <a href="en/privacy.html" hreflang="en">English</a>
+  <div class="wrap footer-row">
+    <div>© 2026 Джамбаз · направено в София</div>
+    <div>
+      <a href="index.html">Начало</a> ·
+      <a href="terms.html">Условия</a> ·
+      <a href="support.html">Поддръжка</a> ·
+      <a href="en/privacy.html" hreflang="en">English</a>
+    </div>
   </div>
 </footer>
 

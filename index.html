@@ -3,240 +3,546 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Авто Анализ — Разбери истинската пазарна цена на всяка кола</title>
-<meta name="description" content="Browser разширение за mobile.bg и cars.bg, което показва реалната пазарна цена на колата, която разглеждате — и препоръчва цена за вашата. Безплатно. Локално. Поверително.">
-<meta property="og:title" content="Авто Анализ — Разбери истинската пазарна цена">
+<title>Джамбаз — Истинската пазарна цена на вашия автомобил</title>
+<meta name="description" content="Браузърно разширение за mobile.bg и cars.bg. Чете обявите, които гледате, и моментално изчислява медианна цена, разпределение и справедлива оценка.">
+<meta property="og:title" content="Джамбаз — Истинската пазарна цена">
 <meta property="og:description" content="Виждате ли изгодна или надценена обява? Колко да искате за вашата кола? Разберете за секунди.">
 <meta property="og:image" content="icon.png">
 <meta property="og:type" content="website">
 <link rel="alternate" hreflang="bg" href="index.html">
 <link rel="alternate" hreflang="en" href="en/index.html">
 <link rel="icon" href="icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="marketing">
+<body>
 
-<header class="site-header">
-  <a class="brand" href="index.html">
-    <img src="icon.png" alt="">
-    <span>Авто Анализ</span>
-  </a>
-  <div class="header-right">
-    <div class="lang-switcher" role="group" aria-label="Език">
-      <span class="active" aria-current="true">BG</span>
-      <a href="en/index.html" hreflang="en">EN</a>
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">
+      <span><span class="wm-a" style="color:var(--brand);font-size:1.25em">Джамбаз</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#what">Какво прави</a>
+      <a href="#how">Как работи</a>
+      <a href="#privacy">Поверителност</a>
+      <div class="lang-switcher" role="group" aria-label="Език" data-keep>
+        <span class="active" aria-current="true">BG</span>
+        <a href="en/index.html" hreflang="en">EN</a>
+      </div>
+      <a class="nav-cta" href="#install">
+        Инсталирай
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
-    <a class="btn-install-sm" href="#install">Инсталирай</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> БЕЗПЛАТНО · РАБОТИ С MOBILE.BG И CARS.BG</span>
+      <h1 class="hero-title">Истинската пазарна цена на вашия <span class="accent-a">автомобил</span>.</h1>
+      <p class="lede">Джамбаз чете реалните обяви, които гледате, и моментално изчислява медианна цена, разпределение и справедлива оценка — директно в браузъра.</p>
+      <div class="cta-row">
+        <a href="#install" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          Добави в Chrome
+        </a>
+        <a href="#how" class="btn btn-ghost">Виж как работи →</a>
+      </div>
+      <div class="cta-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Без регистрация</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Без реклами</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg> Работи офлайн</span>
+      </div>
+      <div class="supported-card">
+        <div class="label">Работи с</div>
+        <div class="sites">
+          <span class="site-chip"><span class="dot"></span>mobile.bg</span>
+          <span class="site-chip"><span class="dot"></span>cars.bg</span>
+          <span class="more">още на път</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="browser">
+        <div class="browser-bar">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="urlbar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8M8 14h5"/></svg>
+            mobile.bg/obiavi/avtomobili
+          </div>
+          <div class="ext-chip"><span class="badge"></span> Джамбаз</div>
+        </div>
+        <div class="browser-body">
+          <div class="site">
+            <div class="site-head">
+              <div>
+                <div class="site-title">BMW 320d · София</div>
+                <div class="site-sub">60 резултата · сортирани по релевантност</div>
+              </div>
+              <div class="mono" style="font-size:10px;color:var(--muted)">⟡ анализирани</div>
+            </div>
+            <div class="listing">
+              <div class="thumb"></div>
+              <div>
+                <div class="lst-title">BMW 320d Touring · 2018</div>
+                <div class="lst-meta">184 000 км · автоматик · дизел</div>
+              </div>
+              <div class="lst-price">14 500 €</div>
+            </div>
+            <div class="listing">
+              <div class="thumb"></div>
+              <div>
+                <div class="lst-title">BMW 320d xDrive · 2017</div>
+                <div class="lst-meta">212 000 км · ръчна · дизел</div>
+              </div>
+              <div class="lst-price">12 700 €</div>
+            </div>
+            <div class="listing">
+              <div class="thumb"></div>
+              <div>
+                <div class="lst-title">BMW 320d M-Sport · 2019</div>
+                <div class="lst-meta">156 000 км · автоматик · дизел</div>
+              </div>
+              <div class="lst-price">16 600 €</div>
+            </div>
+            <div class="listing">
+              <div class="thumb"></div>
+              <div>
+                <div class="lst-title">BMW 320d · 2016</div>
+                <div class="lst-meta">248 000 км · автоматик · дизел</div>
+              </div>
+              <div class="lst-price">10 100 €</div>
+            </div>
+          </div>
+
+          <aside class="ext">
+            <div class="ext-header">
+              <span class="ext-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg>
+              </span>
+              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-lang">EN</span>
+            </div>
+
+            <div class="ext-tabs">
+              <div class="ext-tab active">Статистика</div>
+              <div class="ext-tab">Обяви<span class="count">60</span></div>
+              <div class="ext-tab">Оцени моята</div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi"><label>Общо обяви</label><div class="v">60</div></div>
+              <div class="kpi"><label>Медианна цена</label><div class="v">13 900<span class="u">€</span></div></div>
+              <div class="kpi"><label>Медианни km</label><div class="v">198<span class="u">тк</span></div></div>
+            </div>
+
+            <div class="range">
+              <div class="range-head">
+                <span>Диапазон на цените</span>
+                <span><b>9 800 €</b> — <b>18 400 €</b></span>
+              </div>
+              <div class="range-track">
+                <div class="range-fill" style="left:22%;right:18%"></div>
+                <div class="range-pin" style="left:calc(48% - 6px)"></div>
+              </div>
+              <div class="range-axis"><span>9.8к</span><span>13.9к медиана</span><span>18.4к</span></div>
+            </div>
+
+            <div class="range">
+              <div class="range-head">
+                <span>Пробег</span>
+                <span><b>156 тк</b> — <b>248 тк</b></span>
+              </div>
+              <div class="range-track">
+                <div class="range-fill" style="left:30%;right:22%"></div>
+                <div class="range-pin" style="left:calc(52% - 6px)"></div>
+              </div>
+              <div class="range-axis"><span>156</span><span>198 медиана</span><span>248</span></div>
+            </div>
+
+            <div class="ext-footer-chip">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              локално · без трафик
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<main>
+<section id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">01 — Какво прави</div>
+        <h2>Четири неща. Всичкото, от което се нуждаете.</h2>
+      </div>
+      <p>Инструментът се появява тихо, когато разглеждате обяви. Не ви пречи, но когато натиснете — разбирате пазара.</p>
+    </div>
 
-<section class="hero hero-marketing">
-  <div class="hero-inner">
-    <img class="hero-logo" src="icon.png" alt="">
-    <h1>Колко струва колата ви <em>наистина</em>?</h1>
-    <p class="tagline">
-      Вижте истинската пазарна цена на всяка обява — и получете препоръка за вашата — директно в браузъра, докато разглеждате.
-    </p>
-    <a class="cta-primary" href="#install">Инсталирай безплатно</a>
-    <div class="micro-proof">
-      За 10 секунди &nbsp;·&nbsp; Без регистрация &nbsp;·&nbsp; 100% поверително
-    </div>
-    <div class="supported-sites">
-      Работи с <strong>mobile.bg</strong> и <strong>cars.bg</strong>
-    </div>
-  </div>
-</section>
-
-<section class="section demo">
-  <div class="demo-inner">
-    <div class="demo-copy">
-      <h2>Цялата статистика на пазара — на една крачка.</h2>
-      <p>
-        Докато разглеждате резултати от търсене, Авто Анализ агрегира стотици обяви и моментално ви показва: медианна цена, диапазон, пробег и — ако въведете параметрите на вашата кола — три препоръчителни цени за продажба.
-      </p>
-      <ul class="bullets">
-        <li>Цветен индикатор до всяка обява: <strong>изгодна, добра, над медианата, скъпа</strong></li>
-        <li>Интерактивна оценка за вашия автомобил с регулатори за състояние и бързина на продажба</li>
-        <li>Реалистична препоръка на цена: бърза продажба / честна цена / търпелива</li>
-      </ul>
-    </div>
-    <div class="demo-visual" aria-hidden="true">
-      <div class="mock-panel">
-        <div class="mock-header">
-          <span class="mock-title">Авто Анализ</span>
-          <span class="mock-lang">BG</span>
+    <div class="features">
+      <div class="feature">
+        <span class="feature-num">01</span>
+        <h3>Пазарен анализ в реално време</h3>
+        <p>Медианна цена, разпределение на пробег и диапазон на цените — изчислени моментално от актуалните обяви, съответстващи на вашето търсене.</p>
+        <div class="feature-viz dark" style="padding:12px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+            <div style="background:var(--panel-card);border:1px solid var(--panel-line);border-radius:8px;padding:8px 10px">
+              <div style="font-size:9px;color:var(--panel-muted);text-transform:uppercase;letter-spacing:.06em">Обяви</div>
+              <div class="mono" style="font-size:14px;color:#fff;font-weight:700">60</div>
+            </div>
+            <div style="background:var(--panel-card);border:1px solid var(--panel-line);border-radius:8px;padding:8px 10px">
+              <div style="font-size:9px;color:var(--panel-muted);text-transform:uppercase;letter-spacing:.06em">Медиана</div>
+              <div class="mono" style="font-size:14px;color:#fff;font-weight:700">13 900 €</div>
+            </div>
+            <div style="background:var(--panel-card);border:1px solid var(--panel-line);border-radius:8px;padding:8px 10px">
+              <div style="font-size:9px;color:var(--panel-muted);text-transform:uppercase;letter-spacing:.06em">Ø km</div>
+              <div class="mono" style="font-size:14px;color:#fff;font-weight:700">198 тк</div>
+            </div>
+          </div>
+          <div style="position:relative;height:6px;background:var(--panel-line);border-radius:4px;margin-top:4px">
+            <div style="position:absolute;left:22%;right:18%;top:0;bottom:0;background:linear-gradient(90deg,var(--cyan),var(--cyan-2));border-radius:4px"></div>
+            <div style="position:absolute;top:-3px;left:calc(48% - 6px);width:12px;height:12px;border-radius:50%;background:#fff;border:2.5px solid var(--cyan)"></div>
+          </div>
+          <div class="mono" style="display:flex;justify-content:space-between;font-size:9.5px;color:var(--panel-muted)"><span>9.8к</span><span>медиана</span><span>18.4к</span></div>
         </div>
-        <div class="mock-tabs">
-          <span class="mock-tab">Статистика</span>
-          <span class="mock-tab">Обяви (247)</span>
-          <span class="mock-tab active">Оцени моята</span>
+      </div>
+
+      <div class="feature">
+        <span class="feature-num">02</span>
+        <h3>Оценка на вашата кола</h3>
+        <p>Въведете пробег и година, регулирайте състоянието и екстрите — получете три препоръчителни цени: търпелив, балансиран и спешен сценарий за продажба.</p>
+        <div class="feature-viz dark" style="padding:10px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;height:100%">
+            <div style="background:var(--panel-card);border:1px solid var(--panel-line);border-radius:8px;padding:8px;display:flex;flex-direction:column;justify-content:space-between">
+              <span style="font-size:9px;color:var(--panel-muted);text-transform:uppercase;letter-spacing:.06em">Търпелив</span>
+              <span class="mono" style="font-weight:700;font-size:14px;color:#fff">15 200 €</span>
+              <span style="font-size:9px;color:var(--panel-muted)">~2 мес.</span>
+            </div>
+            <div style="background:color-mix(in oklab,var(--cyan) 14%,var(--panel-card));border:1px solid var(--cyan);border-radius:8px;padding:8px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 0 0 3px color-mix(in oklab,var(--cyan) 12%,transparent)">
+              <span style="font-size:9px;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em">Балансирано</span>
+              <span class="mono" style="font-weight:700;font-size:14px;color:var(--cyan)">13 600 €</span>
+              <span style="font-size:9px;color:var(--cyan-2);opacity:.8">~3 седм.</span>
+            </div>
+            <div style="background:var(--panel-card);border:1px solid var(--panel-line);border-radius:8px;padding:8px;display:flex;flex-direction:column;justify-content:space-between">
+              <span style="font-size:9px;color:var(--panel-muted);text-transform:uppercase;letter-spacing:.06em">Спешно</span>
+              <span class="mono" style="font-weight:700;font-size:14px;color:#fff">11 400 €</span>
+              <span style="font-size:9px;color:var(--panel-muted)">~7 дни</span>
+            </div>
+          </div>
         </div>
-        <div class="mock-body">
-          <div class="mock-section-title">Вашата кола</div>
-          <div class="mock-field">
-            <span class="mock-label">Пробег (км)</span>
-            <span class="mock-input">165 000</span>
-          </div>
-          <div class="mock-field">
-            <span class="mock-label">Година</span>
-            <span class="mock-input">2015</span>
-          </div>
+      </div>
 
-          <div class="mock-card">
-            <div class="mock-card-label">Препоръчителна цена</div>
-            <div class="mock-card-value">€14 800</div>
+      <div class="feature">
+        <span class="feature-num">03</span>
+        <h3>Локално и поверително</h3>
+        <p>Всичко, което въвеждате, се съхранява само във вашия браузър. Не изпращаме нищо към външни сървъри, не използваме аналитики.</p>
+        <div class="feature-viz dark" style="padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--panel-text)">
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--panel-line)"><span>localStorage</span><span style="color:var(--ok)">✓ запазено</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--panel-line)"><span>api.analytics.*</span><span style="color:var(--panel-muted)">— блокирано</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--panel-line)"><span>tracking pixels</span><span style="color:var(--panel-muted)">— блокирано</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 0"><span>външни заявки</span><span style="color:var(--panel-muted)">0 / сесия</span></div>
+        </div>
+      </div>
 
-            <div class="mock-tier">
-              <span>Бърза продажба</span>
-              <span class="mock-tier-val">€13 050</span>
-            </div>
-            <div class="mock-tier active">
-              <span>Честна цена</span>
-              <span class="mock-tier-val">€14 800</span>
-            </div>
-            <div class="mock-tier">
-              <span>Търпелива</span>
-              <span class="mock-tier-val">€16 280</span>
-            </div>
-
-            <div class="mock-chips">
-              <span class="mock-chip mock-chip-high">Висока точност</span>
-              <span class="mock-chip">42 подобни</span>
-              <span class="mock-chip">±2 години</span>
-            </div>
-          </div>
+      <div class="feature">
+        <span class="feature-num">04</span>
+        <h3>Безплатно, без реклами</h3>
+        <p>Без регистрация, без абонамент. Инструментът работи тихо, в ъгъла на страницата, докато разглеждате. Отваряте го — използвате го. Затваряте — изчезва.</p>
+        <div class="feature-viz light" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px">
+          <div style="font-family:'Caveat',cursive;font-size:42px;color:var(--brand);line-height:1">0 лв / месец</div>
+          <div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace">без тригъри · без тъмни модели</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
-  <div class="section-inner">
-    <h2 class="centered">За продавачи и купувачи еднакво</h2>
-    <div class="audience-grid">
-      <div class="audience">
-        <div class="audience-tag">За продавачи</div>
-        <h3>Не продавайте твърде евтино. Не висете с надценена оферта.</h3>
-        <p>
-          Въведете пробег и година, регулирайте състоянието и вашата бързина.
-          Получете три реалистични цени, базирани на сравними обяви — изберете тази, която пасва на вашата ситуация.
-        </p>
+<section id="how" class="how-it-works">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">02 — Как работи</div>
+        <h2>Отворете обявите. Останалото правим ние.</h2>
       </div>
-      <div class="audience">
-        <div class="audience-tag">За купувачи</div>
-        <h3>Разпознайте изгодната обява от надценената — на секунда.</h3>
-        <p>
-          Цветен индикатор до всяка обява ви показва къде се намира тя в пазара.
-          Сравнете цена срещу пробег и година — без да отваряте десет таба.
-        </p>
-      </div>
+      <p>Линейна регресия спрямо сравнимите обяви, с тегла за пробег, година и състояние.</p>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="section-inner">
-    <h2 class="centered">Работи за секунди</h2>
     <div class="steps">
       <div class="step">
-        <div class="step-num">1</div>
-        <h3>Инсталирайте разширението</h3>
-        <p>Едно кликване в Chrome Web Store. Без регистрация, без пароли.</p>
+        <div class="step-n">първо</div>
+        <h4>Разширението чете страницата</h4>
+        <p>След като отворите резултати от търсене на автомобили, Джамбаз автоматично събира обявите на място — без заявки към външни сървъри.</p>
       </div>
       <div class="step">
-        <div class="step-num">2</div>
-        <h3>Отворете търсене за кола</h3>
-        <p>Направете търсенето си както обикновено — панелът автоматично се появява в ъгъла.</p>
+        <div class="step-n">после</div>
+        <h4>Агрегира пазарни статистики</h4>
+        <p>Изчислява медиана, квартили и разпределение. Виждате целия пазар като едно число — и неговата форма.</p>
       </div>
       <div class="step">
-        <div class="step-num">3</div>
-        <h3>Вижте анализа</h3>
-        <p>Статистика, цветни маркери на обявите и лична оценка — готови за секунди.</p>
+        <div class="step-n">накрая</div>
+        <h4>Предлага реалистичен диапазон</h4>
+        <p>В таба „Оцени моята“ въведете параметрите си. Линейна регресия и три сценария: търпелив, балансиран, спешен.</p>
+      </div>
+    </div>
+
+    <div class="rate-demo">
+      <div class="rate-form">
+        <h5>Оцени моята</h5>
+        <div class="rate-field">
+          <label>Марка / Модел</label>
+          <div class="rate-input"><span>BMW 320d</span><span class="suf">▾</span></div>
+        </div>
+        <div class="rate-field">
+          <label>Година</label>
+          <div class="rate-input"><span>2018</span><span class="suf">год.</span></div>
+        </div>
+        <div class="rate-field">
+          <label>Пробег</label>
+          <div class="rate-input"><span>184 000</span><span class="suf">км</span></div>
+        </div>
+        <div class="rate-field">
+          <label>Състояние</label>
+          <div class="chips">
+            <span>отлично</span>
+            <span class="on">много добро</span>
+            <span>добро</span>
+            <span>задоволително</span>
+          </div>
+        </div>
+        <div class="rate-field">
+          <label>Екстри</label>
+          <div class="chips">
+            <span class="on">нави.</span>
+            <span class="on">кожа</span>
+            <span>пано.</span>
+            <span class="on">LED</span>
+            <span>harman</span>
+          </div>
+        </div>
+        <div class="rate-field speed">
+          <label>Скорост на продажба</label>
+          <div class="speed-track">
+            <div class="speed-fill"></div>
+            <div class="speed-pin"></div>
+          </div>
+          <div class="speed-labels"><span>Търпелив</span><b>Балансирано</b><span>Спешно</span></div>
+        </div>
+      </div>
+
+      <div class="rate-result">
+        <h5>Препоръчителен диапазон</h5>
+        <div class="meta">
+          <span class="acc">● СРЕДНА ТОЧНОСТ</span>
+          <span>На базата на 11 подобни обяви</span>
+        </div>
+        <div class="price-row">
+          <div class="price-card">
+            <label>Търпелив</label>
+            <div class="p">15 200 €</div>
+            <div class="sub">над медианата · ~2 месеца</div>
+          </div>
+          <div class="price-card mid">
+            <label>Балансирано</label>
+            <div class="p">13 600 €</div>
+            <div class="sub">на пазарната линия · ~3 седмици</div>
+          </div>
+          <div class="price-card">
+            <label>Спешно</label>
+            <div class="p">11 400 €</div>
+            <div class="sub">15% под медианата · ~7 дни</div>
+          </div>
+        </div>
+
+        <div class="similar-head">Най-подобни обяви · 11</div>
+        <div class="similar">
+          <div class="sim-row"><span class="t">BMW 320d Touring · 2018</span><span class="m">182 тк</span><span class="pr">13 900 €</span></div>
+          <div class="sim-row"><span class="t">BMW 320d M-Sport · 2019</span><span class="m">156 тк</span><span class="pr">16 600 €</span></div>
+          <div class="sim-row"><span class="t">BMW 320d xDrive · 2017</span><span class="m">212 тк</span><span class="pr">12 700 €</span></div>
+          <div class="sim-row"><span class="t">BMW 320d · 2018</span><span class="m">195 тк</span><span class="pr">13 400 €</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
-  <div class="section-inner narrow">
-    <h2 class="centered">Поверителност — без компромиси</h2>
-    <p class="centered lead">
-      Авто Анализ е изграден с едно правило: никаква информация не напуска устройството ви.
-    </p>
-    <ul class="trust-list">
-      <li><strong>Всички пресмятания се правят локално</strong>, в браузъра ви.</li>
-      <li><strong>Нищо не се изпраща към наши сървъри</strong> — защото няма такива.</li>
-      <li><strong>Без аналитики, без проследяване, без бисквитки.</strong></li>
-      <li><strong>Данните, които въвеждате</strong> (пробег, година, слайдери), остават само на вашето устройство.</li>
-    </ul>
+<section class="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker">03 — Вътре в разширението</div>
+        <h2>Три екрана. Нищо излишно.</h2>
+      </div>
+      <p>Целият работен поток се случва в една тясна лента отдясно на страницата.</p>
+    </div>
+
+    <div class="screens">
+      <div class="screen">
+        <div class="screen-head"><span>01 · Статистика</span><span class="tag">активен таб</span></div>
+        <div class="screen-body">
+          <div class="ext" style="padding:0">
+            <div class="ext-header">
+              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
+              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-lang">EN</span>
+            </div>
+            <div class="ext-tabs">
+              <div class="ext-tab active">Статистика</div>
+              <div class="ext-tab">Обяви<span class="count">60</span></div>
+              <div class="ext-tab">Оцени моята</div>
+            </div>
+            <div class="kpi-grid">
+              <div class="kpi"><label>Общо</label><div class="v">60</div></div>
+              <div class="kpi"><label>Медиана</label><div class="v">13.9<span class="u">к€</span></div></div>
+              <div class="kpi"><label>Ø km</label><div class="v">198<span class="u">тк</span></div></div>
+            </div>
+            <div class="range">
+              <div class="range-head"><span>Цени</span><span><b>9.8к</b>—<b>18.4к</b></span></div>
+              <div class="range-track"><div class="range-fill" style="left:22%;right:18%"></div><div class="range-pin" style="left:calc(48% - 6px)"></div></div>
+            </div>
+            <div class="range">
+              <div class="range-head"><span>Пробег</span><span><b>156</b>—<b>248</b></span></div>
+              <div class="range-track"><div class="range-fill" style="left:30%;right:22%"></div><div class="range-pin" style="left:calc(52% - 6px)"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-cap"><b>Цял пазар на един екран.</b><br/>Медиана, диапазон, разпределение на пробег.</div>
+      </div>
+
+      <div class="screen">
+        <div class="screen-head"><span>02 · Обяви</span><span class="tag mono" style="color:var(--panel-muted)">n=60</span></div>
+        <div class="screen-body">
+          <div class="ext" style="padding:0">
+            <div class="ext-header">
+              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
+              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-lang">EN</span>
+            </div>
+            <div class="ext-tabs">
+              <div class="ext-tab">Статистика</div>
+              <div class="ext-tab active">Обяви<span class="count">60</span></div>
+              <div class="ext-tab">Оцени моята</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d Touring · 2018 · 182тк</span><span class="pr">13.9к €</span></div>
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d M-Sport · 2019 · 156тк</span><span class="pr">16.6к €</span></div>
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d xDrive · 2017 · 212тк</span><span class="pr">12.7к €</span></div>
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2016 · 248тк</span><span class="pr">10.1к €</span></div>
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2020 · 98тк</span><span class="pr">18.4к €</span></div>
+              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2018 · 195тк</span><span class="pr">13.4к €</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-cap"><b>Сортирани, филтрирани, с индикатор за пробег.</b><br/>Зелени пиксели = добра оферта под медианата.</div>
+      </div>
+
+      <div class="screen">
+        <div class="screen-head"><span>03 · Оцени моята</span><span class="tag">3 сценария</span></div>
+        <div class="screen-body">
+          <div class="ext" style="padding:0">
+            <div class="ext-header">
+              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
+              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-lang">EN</span>
+            </div>
+            <div class="ext-tabs">
+              <div class="ext-tab">Статистика</div>
+              <div class="ext-tab">Обяви<span class="count">60</span></div>
+              <div class="ext-tab active">Оцени моята</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div class="price-card" style="padding:8px 10px"><label>Търпелив</label><div class="p" style="font-size:15px">15 200 €</div></div>
+              <div class="price-card mid" style="padding:8px 10px"><label>Балансирано</label><div class="p" style="font-size:15px">13 600 €</div></div>
+              <div class="price-card" style="padding:8px 10px"><label>Спешно</label><div class="p" style="font-size:15px">11 400 €</div></div>
+            </div>
+            <div class="ext-footer-chip" style="margin-top:10px">11 подобни обяви · средна точност</div>
+          </div>
+        </div>
+        <div class="screen-cap"><b>Една цена не стига.</b><br/>Три сценария ви дават стратегия, не догма.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-inner narrow">
-    <h2 class="centered">Често задавани въпроси</h2>
+<section id="privacy" class="privacy">
+  <div class="wrap privacy-inner">
+    <div>
+      <div class="section-kicker">04 — Поверителност</div>
+      <h2 style="margin-bottom:20px">Вашите данни остават във вашия браузър.</h2>
+      <p style="font-size:16px;color:var(--ink-2);line-height:1.6;text-wrap:pretty;margin-bottom:16px">Не използваме аналитики, не изпращаме данни към външни сървъри и не следим какво гледате. Параметрите на вашия автомобил се запазват локално — ако изчистите браузъра, изчезват.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <span class="ext-chip" style="padding:7px 12px">✓ без аналитики</span>
+        <span class="ext-chip" style="padding:7px 12px">✓ без cookies</span>
+        <span class="ext-chip" style="padding:7px 12px">✓ open source*</span>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:12px;font-family:'JetBrains Mono',monospace">* източниковият код ще бъде публикуван при издаване</div>
+    </div>
 
-    <details class="faq">
-      <summary>Безплатно ли е?</summary>
-      <p>Да, напълно. Няма абонамент, няма реклама, няма „премиум“ версия.</p>
-    </details>
-
-    <details class="faq">
-      <summary>Нужна ли е регистрация?</summary>
-      <p>Не. Инсталирайте разширението и то работи веднага — без акаунти или пароли.</p>
-    </details>
-
-    <details class="faq">
-      <summary>Колко точна е оценката?</summary>
-      <p>Точността зависи от броя сравними обяви. Панелът винаги показва колко обяви са използвани и индикатор за увереността на оценката. При малка извадка го третирайте като ориентир, а не абсолютна стойност.</p>
-    </details>
-
-    <details class="faq">
-      <summary>Използва ли разширението моите данни?</summary>
-      <p>Не. Всичко, което въвеждате, се съхранява локално в браузъра и никога не го напуска. Виж <a href="privacy.html">Политиката за поверителност</a>.</p>
-    </details>
-
-    <details class="faq">
-      <summary>С кои сайтове работи?</summary>
-      <p>В момента — с <strong>mobile.bg</strong> и <strong>cars.bg</strong>. Разширението се активира автоматично, когато отворите страница с резултати от търсене на един от тези сайтове.</p>
-    </details>
-
-    <details class="faq">
-      <summary>С кои браузъри работи?</summary>
-      <p>Chrome, Edge, Brave и други браузъри, базирани на Chromium.</p>
-    </details>
-
-    <details class="faq">
-      <summary>Мога ли да го премахна?</summary>
-      <p>Да, по всяко време — от менюто за разширения на браузъра. Премахването изтрива и всички локални данни.</p>
-    </details>
+    <div class="privacy-card">
+      <div class="head">
+        <b>Network activity</b>
+        <span class="status">активно</span>
+      </div>
+      <div class="net-row"><span class="host">chrome.storage.local</span><span class="type">read</span><span class="res">200 · 0.4kb</span></div>
+      <div class="net-row"><span class="host">page DOM</span><span class="type">read</span><span class="res">200 · локално</span></div>
+      <div class="net-row"><span class="host">google-analytics.com</span><span class="type">xhr</span><span class="res blocked">— blocked</span></div>
+      <div class="net-row"><span class="host">facebook.net/tr</span><span class="type">xhr</span><span class="res blocked">— blocked</span></div>
+      <div class="net-row"><span class="host">external APIs</span><span class="type">—</span><span class="res blocked">0 requests</span></div>
+    </div>
   </div>
 </section>
 
-<section class="final-cta" id="install">
-  <div class="section-inner narrow centered">
-    <h2>Вземете информирано решение.</h2>
-    <p class="lead">Инсталирайте безплатно и вижте пазара такъв, какъвто е — докато разглеждате.</p>
-    <a class="cta-primary large" href="#" id="cws-link">Инсталирай за Chrome</a>
-    <p class="micro-proof dark">
-      Безплатно завинаги &nbsp;·&nbsp; Премахва се с едно кликване &nbsp;·&nbsp; Отворен код
-    </p>
-    <p><small>Линкът към Chrome Web Store ще бъде добавен при публикуване.</small></p>
+<section id="install" class="install">
+  <div class="wrap">
+    <div class="section-kicker" style="text-align:center">05 — Инсталиране</div>
+    <h2 style="margin-left:auto;margin-right:auto">Готово за работа за 30 секунди.</h2>
+    <p>Джамбаз е достъпен за Chrome, Edge и други Chromium-базирани браузъри. Инсталирайте, отворете <b>mobile.bg</b> или <b>cars.bg</b>, и разширението се активира автоматично.</p>
+
+    <a href="#" class="btn btn-primary" style="font-size:16px;padding:15px 24px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v7M21.5 8l-6 3.5M2.5 15.5l6-3.5"/></svg>
+      Отвори в Chrome Web Store
+    </a>
+
+    <div class="browsers">
+      <span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Chrome</span>
+      <span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Edge</span>
+      <span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Brave</span>
+      <span class="b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> Opera</span>
+    </div>
+
+    <div class="note">Линкът ще бъде добавен при публикуване на разширението.</div>
   </div>
 </section>
 
-</main>
+<div class="disclaimer">
+  <div class="wrap disclaimer-inner">
+    <div class="tag-note">забележка</div>
+    <div>
+      <h3>Оценките са ориентировъчни.</h3>
+      <p>Окончателната цена зависи от множество фактори, които автоматична система не може да оцени напълно — история на собственост, сервизна книжка, скрити повреди, пазарна конюнктура. Огледайте подобни обяви, проверете автомобила на място и вземете информирано решение.</p>
+    </div>
+  </div>
+</div>
 
 <footer>
-  <div>© 2026 Авто Анализ</div>
-  <div style="margin-top: 8px;">
-    <a href="privacy.html">Поверителност</a> ·
-    <a href="terms.html">Условия</a> ·
-    <a href="support.html">Поддръжка</a> ·
-    <a href="en/index.html" hreflang="en">English</a>
+  <div class="wrap footer-row">
+    <div>© 2026 Джамбаз · направено в София</div>
+    <div>
+      <a href="privacy.html">Поверителност</a> ·
+      <a href="terms.html">Условия</a> ·
+      <a href="support.html">Поддръжка</a> ·
+      <a href="en/index.html" hreflang="en">English</a>
+    </div>
+    <div class="mono" style="font-size:12px">v1.0 · manifest v3</div>
   </div>
 </footer>
 

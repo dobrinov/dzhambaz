@@ -3,31 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Поддръжка — Авто Анализ</title>
+<title>Поддръжка — Джамбаз</title>
 <link rel="alternate" hreflang="bg" href="support.html">
 <link rel="alternate" hreflang="en" href="en/support.html">
 <link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="legal-page">
 
-<header>
-  <a class="brand" href="index.html">
-    <img src="icon.png" alt="">
-    <span>Авто Анализ</span>
-  </a>
-  <div class="header-right">
-    <nav>
+<nav class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="index.html">
+      <span><span class="wm-a" style="color:var(--brand);font-size:1.25em">Джамбаз</span></span>
+    </a>
+    <div class="nav-links">
       <a href="index.html">Начало</a>
       <a href="privacy.html">Поверителност</a>
       <a href="terms.html">Условия</a>
-    </nav>
-    <div class="lang-switcher" role="group" aria-label="Език">
-      <span class="active" aria-current="true">BG</span>
-      <a href="en/support.html" hreflang="en">EN</a>
+      <div class="lang-switcher" role="group" aria-label="Език" data-keep>
+        <span class="active" aria-current="true">BG</span>
+        <a href="en/support.html" hreflang="en">EN</a>
+      </div>
     </div>
   </div>
-</header>
+</nav>
 
 <div class="container">
 
@@ -44,14 +46,14 @@
   <h3>Използва ли разширението моите лични данни?</h3>
   <p>Не. Всичко, което въвеждате, се съхранява локално в браузъра и никога не напуска устройството. Вижте <a href="privacy.html">Политиката за поверителност</a> за подробности.</p>
 
+  <h3>С кои сайтове работи?</h3>
+  <p>В момента — с <strong>mobile.bg</strong> и <strong>cars.bg</strong>. Разширението се активира автоматично, когато отворите страница с резултати от търсене на един от тези сайтове.</p>
+
   <h3>Защо виждам „Започнете с търсене“?</h3>
   <p>Панелът показва анализ само когато сте на страница с резултати от търсене. На начална страница или страница на отделна обява няма какво да се анализира.</p>
 
   <h3>Защо оценката ми изглежда странно?</h3>
   <p>Точността зависи от броя сравними обяви. В таба „Оцени моята“ виждате колко обяви са използвани — при малък брой (например под 10) оценката е ориентировъчна. Опитайте да разширите търсенето си (например по-широк диапазон години).</p>
-
-  <h3>Защо пазарното обхождане продължава, когато преминавам между страници?</h3>
-  <p>Анализът извлича данни от множество страници в резултата, за да постигне по-точна статистика. Ако промените критериите на търсене, започва ново обхождане. Докато критериите са същите, прогресът се запазва.</p>
 
   <h3>Мога ли да предложа функция?</h3>
   <p>Разбира се. Пишете ни с описание на идеята на адреса по-горе.</p>
@@ -59,12 +61,14 @@
 </div>
 
 <footer>
-  <div>© 2026 Авто Анализ</div>
-  <div style="margin-top: 8px;">
-    <a href="index.html">Начало</a> ·
-    <a href="privacy.html">Поверителност</a> ·
-    <a href="terms.html">Условия</a> ·
-    <a href="en/support.html" hreflang="en">English</a>
+  <div class="wrap footer-row">
+    <div>© 2026 Джамбаз · направено в София</div>
+    <div>
+      <a href="index.html">Начало</a> ·
+      <a href="privacy.html">Поверителност</a> ·
+      <a href="terms.html">Условия</a> ·
+      <a href="en/support.html" hreflang="en">English</a>
+    </div>
   </div>
 </footer>
 
