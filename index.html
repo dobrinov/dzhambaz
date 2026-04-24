@@ -125,10 +125,7 @@
 
           <aside class="ext">
             <div class="ext-header">
-              <span class="ext-logo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg>
-              </span>
-              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-name">Джамбаз</span>
               <span class="ext-lang">EN</span>
             </div>
 
@@ -138,34 +135,61 @@
               <div class="ext-tab">Оцени моята</div>
             </div>
 
-            <div class="kpi-grid">
-              <div class="kpi"><label>Общо обяви</label><div class="v">60</div></div>
-              <div class="kpi"><label>Медианна цена</label><div class="v">13 900<span class="u">€</span></div></div>
-              <div class="kpi"><label>Медианни km</label><div class="v">198<span class="u">тк</span></div></div>
+            <div class="ext-scanbar">
+              <span>scan <b>mobile.bg</b></span>
+              <div class="track"><div class="fill" style="width:100%"></div></div>
+              <span>60/60</span>
             </div>
 
-            <div class="range">
-              <div class="range-head">
-                <span>Диапазон на цените</span>
-                <span><b>9 800 €</b> — <b>18 400 €</b></span>
+            <div class="ext-hero" style="margin: 10px 0 0">
+              <div class="ext-hero-label">Медианна цена</div>
+              <div class="ext-hero-value">€13,900</div>
+              <div class="ext-hero-sub">
+                <span>P25 <b>€9,800</b></span>
+                <span>P75 <b>€18,400</b></span>
               </div>
-              <div class="range-track">
-                <div class="range-fill" style="left:22%;right:18%"></div>
-                <div class="range-pin" style="left:calc(48% - 6px)"></div>
-              </div>
-              <div class="range-axis"><span>9.8к</span><span>13.9к медиана</span><span>18.4к</span></div>
             </div>
 
-            <div class="range">
-              <div class="range-head">
-                <span>Пробег</span>
-                <span><b>156 тк</b> — <b>248 тк</b></span>
+            <div class="ext-ministats" style="margin-top:8px">
+              <div class="ext-ministat">
+                <div class="ext-ministat-label">Медианни km</div>
+                <div class="ext-ministat-val">198,000</div>
               </div>
-              <div class="range-track">
-                <div class="range-fill" style="left:30%;right:22%"></div>
-                <div class="range-pin" style="left:calc(52% - 6px)"></div>
+              <div class="ext-ministat">
+                <div class="ext-ministat-label">Медианна година</div>
+                <div class="ext-ministat-val">2018</div>
               </div>
-              <div class="range-axis"><span>156</span><span>198 медиана</span><span>248</span></div>
+            </div>
+
+            <div class="ext-distro" style="margin-top:6px">
+              <div class="ext-distro-head">
+                <span class="k">ЦЕНА</span>
+                <span class="r">€9.8к → €18.4к</span>
+              </div>
+              <div class="ext-hist">
+                <div class="ext-hist-bar" style="height:18%"></div>
+                <div class="ext-hist-bar" style="height:25%"></div>
+                <div class="ext-hist-bar" style="height:30%"></div>
+                <div class="ext-hist-bar" style="height:28%"></div>
+                <div class="ext-hist-bar" style="height:40%"></div>
+                <div class="ext-hist-bar iqr" style="height:55%"></div>
+                <div class="ext-hist-bar iqr" style="height:68%"></div>
+                <div class="ext-hist-bar iqr" style="height:88%"></div>
+                <div class="ext-hist-bar iqr" style="height:100%"></div>
+                <div class="ext-hist-bar iqr" style="height:82%"></div>
+                <div class="ext-hist-bar iqr" style="height:75%"></div>
+                <div class="ext-hist-bar iqr" style="height:62%"></div>
+                <div class="ext-hist-bar iqr" style="height:50%"></div>
+                <div class="ext-hist-bar" style="height:38%"></div>
+                <div class="ext-hist-bar" style="height:32%"></div>
+                <div class="ext-hist-bar" style="height:22%"></div>
+                <div class="ext-hist-bar" style="height:15%"></div>
+                <div class="ext-hist-bar" style="height:18%"></div>
+              </div>
+              <div class="ext-hist-base"></div>
+              <div class="ext-hist-axis">
+                <span>P25</span><span class="m">медиана</span><span>P75</span>
+              </div>
             </div>
 
             <div class="ext-footer-chip">
@@ -391,8 +415,7 @@
         <div class="screen-body">
           <div class="ext" style="padding:0">
             <div class="ext-header">
-              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
-              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-name">Джамбаз</span>
               <span class="ext-lang">EN</span>
             </div>
             <div class="ext-tabs">
@@ -400,22 +423,37 @@
               <div class="ext-tab">Обяви<span class="count">60</span></div>
               <div class="ext-tab">Оцени моята</div>
             </div>
-            <div class="kpi-grid">
-              <div class="kpi"><label>Общо</label><div class="v">60</div></div>
-              <div class="kpi"><label>Медиана</label><div class="v">13.9<span class="u">к€</span></div></div>
-              <div class="kpi"><label>Ø km</label><div class="v">198<span class="u">тк</span></div></div>
+            <div class="ext-hero" style="margin: 10px 0 0">
+              <div class="ext-hero-label">Медианна цена</div>
+              <div class="ext-hero-value">€13,900</div>
+              <div class="ext-hero-sub">
+                <span>P25 <b>€9.8к</b></span>
+                <span>P75 <b>€18.4к</b></span>
+              </div>
             </div>
-            <div class="range">
-              <div class="range-head"><span>Цени</span><span><b>9.8к</b>—<b>18.4к</b></span></div>
-              <div class="range-track"><div class="range-fill" style="left:22%;right:18%"></div><div class="range-pin" style="left:calc(48% - 6px)"></div></div>
-            </div>
-            <div class="range">
-              <div class="range-head"><span>Пробег</span><span><b>156</b>—<b>248</b></span></div>
-              <div class="range-track"><div class="range-fill" style="left:30%;right:22%"></div><div class="range-pin" style="left:calc(52% - 6px)"></div></div>
+            <div class="ext-distro" style="margin-top:8px">
+              <div class="ext-distro-head">
+                <span class="k">ПРОБЕГ</span>
+                <span class="r">156к → 248к</span>
+              </div>
+              <div class="ext-hist">
+                <div class="ext-hist-bar" style="height:20%"></div>
+                <div class="ext-hist-bar" style="height:32%"></div>
+                <div class="ext-hist-bar" style="height:45%"></div>
+                <div class="ext-hist-bar iqr" style="height:70%"></div>
+                <div class="ext-hist-bar iqr" style="height:92%"></div>
+                <div class="ext-hist-bar iqr" style="height:100%"></div>
+                <div class="ext-hist-bar iqr" style="height:78%"></div>
+                <div class="ext-hist-bar iqr" style="height:60%"></div>
+                <div class="ext-hist-bar" style="height:40%"></div>
+                <div class="ext-hist-bar" style="height:25%"></div>
+                <div class="ext-hist-bar" style="height:18%"></div>
+              </div>
+              <div class="ext-hist-base"></div>
             </div>
           </div>
         </div>
-        <div class="screen-cap"><b>Цял пазар на един екран.</b><br/>Медиана, диапазон, разпределение на пробег.</div>
+        <div class="screen-cap"><b>Цял пазар на един екран.</b><br/>Хистограма, диапазон, P25/медиана/P75.</div>
       </div>
 
       <div class="screen">
@@ -423,8 +461,7 @@
         <div class="screen-body">
           <div class="ext" style="padding:0">
             <div class="ext-header">
-              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
-              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-name">Джамбаз</span>
               <span class="ext-lang">EN</span>
             </div>
             <div class="ext-tabs">
@@ -432,17 +469,53 @@
               <div class="ext-tab active">Обяви<span class="count">60</span></div>
               <div class="ext-tab">Оцени моята</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d Touring · 2018 · 182тк</span><span class="pr">13.9к €</span></div>
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d M-Sport · 2019 · 156тк</span><span class="pr">16.6к €</span></div>
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d xDrive · 2017 · 212тк</span><span class="pr">12.7к €</span></div>
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2016 · 248тк</span><span class="pr">10.1к €</span></div>
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2020 · 98тк</span><span class="pr">18.4к €</span></div>
-              <div class="sim-row" style="grid-template-columns:1fr auto"><span class="t">BMW 320d · 2018 · 195тк</span><span class="pr">13.4к €</span></div>
+            <div style="display:flex;flex-direction:column;gap:4px;padding: 8px 2px">
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center;border-bottom:1px solid var(--panel-line)">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d · 2016 · 248тк</div>
+                  <span class="ext-verdict ext-verdict-under">↓ под пазара</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#4ade80;font-weight:600">10.1к €</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center;border-bottom:1px solid var(--panel-line)">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d xDrive · 2017 · 212тк</div>
+                  <span class="ext-verdict ext-verdict-under">↓ под пазара</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#4ade80;font-weight:600">12.7к €</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center;border-bottom:1px solid var(--panel-line)">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d · 2018 · 195тк</div>
+                  <span class="ext-verdict ext-verdict-fair">≈ справедлива</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cbd5e1;font-weight:600">13.4к €</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center;border-bottom:1px solid var(--panel-line)">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d Touring · 2018 · 182тк</div>
+                  <span class="ext-verdict ext-verdict-fair">≈ справедлива</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#cbd5e1;font-weight:600">13.9к €</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center;border-bottom:1px solid var(--panel-line)">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d · 2020 · 98тк</div>
+                  <span class="ext-verdict ext-verdict-over">↑ над пазара</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#fbbf24;font-weight:600">18.4к €</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr auto;padding:8px 10px;gap:10px;align-items:center">
+                <div style="min-width:0">
+                  <div style="font-size:11.5px;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">BMW 320d · 2015 · 340тк</div>
+                  <span class="ext-verdict ext-verdict-outlier">⚑ аутлайер</span>
+                </div>
+                <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#f87171;font-weight:600">2.1к €</div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="screen-cap"><b>Сортирани, филтрирани, с индикатор за пробег.</b><br/>Зелени пиксели = добра оферта под медианата.</div>
+        <div class="screen-cap"><b>Вердикт за всяка обява.</b><br/>Под пазара, справедлива, над пазара или аутлайер.</div>
       </div>
 
       <div class="screen">
@@ -450,8 +523,7 @@
         <div class="screen-body">
           <div class="ext" style="padding:0">
             <div class="ext-header">
-              <span class="ext-logo"><svg viewBox="0 0 24 24" fill="none" stroke="#5ba8ff" stroke-width="1.6" stroke-linejoin="round"><path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/><circle cx="8" cy="14.5" r="1" fill="#5ba8ff"/><circle cx="16" cy="14.5" r="1" fill="#5ba8ff"/></svg></span>
-              <span class="ext-name"><span class="wm-a" style="font-size:1.2em">Джамбаз</span></span>
+              <span class="ext-name">Джамбаз</span>
               <span class="ext-lang">EN</span>
             </div>
             <div class="ext-tabs">
@@ -459,12 +531,29 @@
               <div class="ext-tab">Обяви<span class="count">60</span></div>
               <div class="ext-tab active">Оцени моята</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="padding: 12px 10px 4px">
+              <div class="ext-hero-label" style="margin-bottom:4px">Препоръчителна цена</div>
+              <div class="ext-hero-value">€13,600</div>
+              <div class="ext-hero-sub" style="margin-top:6px"><span>диапазон <b>€11,400 – €15,200</b></span></div>
+              <div class="ext-confidence">
+                <div class="ext-confidence-head">
+                  <span>доверие</span>
+                  <span class="val">средно · 11 подобни</span>
+                </div>
+                <div class="ext-confidence-meter">
+                  <div class="ext-confidence-seg on"></div>
+                  <div class="ext-confidence-seg on"></div>
+                  <div class="ext-confidence-seg on"></div>
+                  <div class="ext-confidence-seg"></div>
+                  <div class="ext-confidence-seg"></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;padding:0 10px 10px">
               <div class="price-card" style="padding:8px 10px"><label>Търпелив</label><div class="p" style="font-size:15px">15 200 €</div></div>
               <div class="price-card mid" style="padding:8px 10px"><label>Балансирано</label><div class="p" style="font-size:15px">13 600 €</div></div>
               <div class="price-card" style="padding:8px 10px"><label>Спешно</label><div class="p" style="font-size:15px">11 400 €</div></div>
             </div>
-            <div class="ext-footer-chip" style="margin-top:10px">11 подобни обяви · средна точност</div>
           </div>
         </div>
         <div class="screen-cap"><b>Една цена не стига.</b><br/>Три сценария ви дават стратегия, не догма.</div>

@@ -11,14 +11,14 @@
   --brand: #1a3a6b;
   --brand-2: #2458a6;
   --brand-ink: #0b1f3a;
-  --cyan: #5ba8ff;
-  --cyan-2: #89c0ff;
+  --cyan: #38bdf8;
+  --cyan-2: #7dd3fc;
 
-  /* Extension panel tokens */
-  --panel-bg: #0f1b2e;
-  --panel-card: #17263f;
-  --panel-card-2: #1c2d4a;
-  --panel-line: #24375a;
+  /* Extension panel tokens — synced with real extension */
+  --panel-bg: #1e293b;
+  --panel-card: #334155;
+  --panel-card-2: #475569;
+  --panel-line: #475569;
   --panel-text: #e7edf7;
   --panel-muted: #8397b9;
 
@@ -276,10 +276,11 @@ h1 .accent-a { color: var(--brand); }
 }
 .ext-logo svg { width: 16px; height: 16px; }
 .ext-name {
-  font-weight: 700; font-size: 13.5px; color: var(--cyan);
-  letter-spacing: -0.01em;
+  font-family: "Caveat", "Georgia", serif;
+  font-weight: 700; font-size: 20px; color: var(--cyan);
+  letter-spacing: -0.01em; line-height: 1;
 }
-.ext-name .wm-a { color: var(--cyan); }
+.ext-name .wm-a { color: var(--cyan); font-size: 1em; }
 .ext-lang {
   margin-left: auto;
   font-size: 10.5px; color: var(--panel-muted);
@@ -381,6 +382,160 @@ h1 .accent-a { color: var(--brand); }
   padding-top: 10px;
   border-top: 1px dashed var(--panel-line);
 }
+
+/* ── Extension hero median card (synced with real extension) ─────────── */
+
+.ext-hero {
+  padding: 14px 16px 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.ext-hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; color: var(--panel-muted);
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+}
+.ext-hero-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px; line-height: 1;
+  color: #fff; font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+.ext-hero-sub {
+  font-size: 11px; color: var(--panel-muted);
+  margin-top: 8px; display: flex; gap: 12px; flex-wrap: wrap;
+}
+.ext-hero-sub b { color: #cbd5e1; font-weight: 500; }
+
+/* Mini stats (2-col) */
+.ext-ministats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  margin-bottom: 10px;
+}
+.ext-ministat {
+  padding: 9px 11px 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--panel-line);
+  border-radius: 9px;
+}
+.ext-ministat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--panel-muted);
+  text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+  margin-bottom: 3px;
+}
+.ext-ministat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px; font-weight: 500; color: #fff;
+  letter-spacing: -0.01em;
+}
+
+/* Histogram bars (replaces range bar) */
+.ext-distro {
+  margin-top: 6px; margin-bottom: 4px;
+}
+.ext-distro-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 8px;
+}
+.ext-distro-head .k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; color: var(--panel-muted);
+  letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+}
+.ext-distro-head .r {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--panel-muted);
+}
+.ext-hist {
+  height: 40px;
+  display: flex; align-items: flex-end; gap: 2px;
+}
+.ext-hist-bar {
+  flex: 1; min-height: 3px;
+  background: #64748b; opacity: 0.4;
+  border-radius: 1.5px 1.5px 0 0;
+}
+.ext-hist-bar.iqr {
+  background: var(--cyan); opacity: 0.85;
+}
+.ext-hist-base {
+  height: 1px; background: var(--panel-line); margin-top: 2px;
+}
+.ext-hist-axis {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--panel-muted);
+  margin-top: 6px;
+}
+.ext-hist-axis .m { color: var(--cyan); font-weight: 600; }
+
+/* Per-listing verdict chip + inline position bar */
+.ext-verdict {
+  display: inline-flex; align-items: center; gap: 3px;
+  margin-top: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px; letter-spacing: 0.02em;
+  opacity: 0.9; white-space: nowrap;
+}
+.ext-verdict-under { color: #4ade80; }
+.ext-verdict-fair { color: var(--panel-muted); }
+.ext-verdict-over { color: #fbbf24; }
+.ext-verdict-outlier { color: #f87171; }
+.ext-posbar {
+  margin-top: 5px; height: 2px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 1px; position: relative;
+}
+.ext-posbar-iqr {
+  position: absolute; top: 0; bottom: 0;
+  background: var(--panel-line);
+}
+.ext-posbar-dot {
+  position: absolute; top: -2px; width: 6px; height: 6px;
+  border-radius: 50%; transform: translateX(-50%);
+}
+
+/* Confidence meter (5-segment) */
+.ext-confidence {
+  margin-top: 10px;
+}
+.ext-confidence-head {
+  display: flex; justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--panel-muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.ext-confidence-head .val { color: var(--cyan); }
+.ext-confidence-meter {
+  display: flex; gap: 3px; height: 5px;
+}
+.ext-confidence-seg {
+  flex: 1; border-radius: 2px;
+  background: var(--panel-line);
+}
+.ext-confidence-seg.on { background: var(--cyan); }
+
+/* Extension scan bar (thin progress strip between tabs + body) */
+.ext-scanbar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 12px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--panel-line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--panel-muted);
+}
+.ext-scanbar b { color: #cbd5e1; font-weight: 500; }
+.ext-scanbar .track {
+  flex: 1; height: 3px; background: var(--panel-line); border-radius: 2px;
+  overflow: hidden;
+}
+.ext-scanbar .fill { height: 100%; background: var(--cyan); }
 
 /* ── Sections ─────────────────────────────────────────────────────────── */
 
