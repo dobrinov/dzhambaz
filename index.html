@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Авто Анализ — Разбери истинската пазарна цена на всяка кола</title>
-<meta name="description" content="Browser разширение, което показва реалната пазарна цена на колата, която разглеждате — и препоръчва цена за вашата. Безплатно. Локално. Поверително.">
+<meta name="description" content="Browser разширение за mobile.bg и cars.bg, което показва реалната пазарна цена на колата, която разглеждате — и препоръчва цена за вашата. Безплатно. Локално. Поверително.">
 <meta property="og:title" content="Авто Анализ — Разбери истинската пазарна цена">
 <meta property="og:description" content="Виждате ли изгодна или надценена обява? Колко да искате за вашата кола? Разберете за секунди.">
 <meta property="og:image" content="icon.png">
@@ -14,9 +14,9 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="marketing">
 
-<header class="site-header on-dark">
+<header class="site-header">
   <a class="brand" href="index.html">
     <img src="icon.png" alt="">
     <span>Авто Анализ</span>
@@ -32,21 +32,37 @@
 
 <main>
 
-<section class="hero-marketing">
+<section class="hero hero-marketing">
   <div class="hero-inner">
-    <div class="hero-text">
-      <img class="hero-logo" src="icon.png" alt="">
-      <h1>Колко струва колата ви <em>наистина</em>?</h1>
-      <p class="tagline">
-        Вижте истинската пазарна цена на всяка обява — и получете препоръка за вашата — директно в браузъра, докато разглеждате.
-      </p>
-      <a class="cta-primary" href="#install">Инсталирай безплатно</a>
-      <div class="micro-proof">
-        За 10 секунди &nbsp;·&nbsp; Без регистрация &nbsp;·&nbsp; 100% поверително
-      </div>
+    <img class="hero-logo" src="icon.png" alt="">
+    <h1>Колко струва колата ви <em>наистина</em>?</h1>
+    <p class="tagline">
+      Вижте истинската пазарна цена на всяка обява — и получете препоръка за вашата — директно в браузъра, докато разглеждате.
+    </p>
+    <a class="cta-primary" href="#install">Инсталирай безплатно</a>
+    <div class="micro-proof">
+      За 10 секунди &nbsp;·&nbsp; Без регистрация &nbsp;·&nbsp; 100% поверително
     </div>
+    <div class="supported-sites">
+      Работи с <strong>mobile.bg</strong> и <strong>cars.bg</strong>
+    </div>
+  </div>
+</section>
 
-    <div class="hero-visual" aria-hidden="true">
+<section class="section demo">
+  <div class="demo-inner">
+    <div class="demo-copy">
+      <h2>Цялата статистика на пазара — на една крачка.</h2>
+      <p>
+        Докато разглеждате резултати от търсене, Авто Анализ агрегира стотици обяви и моментално ви показва: медианна цена, диапазон, пробег и — ако въведете параметрите на вашата кола — три препоръчителни цени за продажба.
+      </p>
+      <ul class="bullets">
+        <li>Цветен индикатор до всяка обява: <strong>изгодна, добра, над медианата, скъпа</strong></li>
+        <li>Интерактивна оценка за вашия автомобил с регулатори за състояние и бързина на продажба</li>
+        <li>Реалистична препоръка на цена: бърза продажба / честна цена / търпелива</li>
+      </ul>
+    </div>
+    <div class="demo-visual" aria-hidden="true">
       <div class="mock-panel">
         <div class="mock-header">
           <span class="mock-title">Авто Анализ</span>
@@ -97,79 +113,71 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="section-inner">
-    <h2 class="section-title">За продавачи и купувачи.</h2>
-    <p class="section-subtitle">Един инструмент. Два ясни начина да вземете по-добро решение за кола.</p>
+    <h2 class="centered">За продавачи и купувачи еднакво</h2>
     <div class="audience-grid">
       <div class="audience">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M5 9l7-7 7 7M19 14H9a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h10"/>
-          </svg>
-        </div>
         <div class="audience-tag">За продавачи</div>
-        <h3>Не продавайте на загуба. Не висете с надценена оферта.</h3>
-        <p>Въведете пробег и година, регулирайте състоянието и бързината си. Получете три реалистични цени, базирани на сравними обяви — изберете тази, която пасва на ситуацията ви.</p>
+        <h3>Не продавайте твърде евтино. Не висете с надценена оферта.</h3>
+        <p>
+          Въведете пробег и година, регулирайте състоянието и вашата бързина.
+          Получете три реалистични цени, базирани на сравними обяви — изберете тази, която пасва на вашата ситуация.
+        </p>
       </div>
-
       <div class="audience">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            <line x1="11" y1="8" x2="11" y2="14"/>
-            <line x1="8" y1="11" x2="14" y2="11"/>
-          </svg>
-        </div>
         <div class="audience-tag">За купувачи</div>
-        <h3>Разпознайте изгодната обява от надценената — мигновено.</h3>
-        <p>Цветен индикатор до всяка обява ви показва къде се намира тя в пазара. Сравнете цена срещу пробег и година — без да отваряте десет таба.</p>
+        <h3>Разпознайте изгодната обява от надценената — на секунда.</h3>
+        <p>
+          Цветен индикатор до всяка обява ви показва къде се намира тя в пазара.
+          Сравнете цена срещу пробег и година — без да отваряте десет таба.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="section-inner">
-    <h2 class="section-title">Работи за секунди.</h2>
-    <p class="section-subtitle">Без конфигурация. Без акаунти. Просто отворете търсене и панелът се появява.</p>
+    <h2 class="centered">Работи за секунди</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Инсталирайте</h3>
+        <h3>Инсталирайте разширението</h3>
         <p>Едно кликване в Chrome Web Store. Без регистрация, без пароли.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Търсете кола</h3>
-        <p>Направете обичайното си търсене. Панелът се отваря автоматично в ъгъла.</p>
+        <h3>Отворете търсене за кола</h3>
+        <p>Направете търсенето си както обикновено — панелът автоматично се появява в ъгъла.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <h3>Вижте анализа</h3>
-        <p>Статистика, цветни маркери на обявите и лична оценка — готови мигновено.</p>
+        <p>Статистика, цветни маркери на обявите и лична оценка — готови за секунди.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="section-inner narrow">
-    <h2 class="section-title">Поверителност — без компромиси.</h2>
-    <p class="section-subtitle">Авто Анализ е изграден с едно правило: никаква информация не напуска устройството ви.</p>
+    <h2 class="centered">Поверителност — без компромиси</h2>
+    <p class="centered lead">
+      Авто Анализ е изграден с едно правило: никаква информация не напуска устройството ви.
+    </p>
     <ul class="trust-list">
-      <li><strong>Локално пресмятане.</strong> Всичко се случва в браузъра ви.</li>
-      <li><strong>Нула наши сървъри.</strong> Защото не държим такива.</li>
-      <li><strong>Без проследяване.</strong> Без аналитики, без бисквитки.</li>
-      <li><strong>Вашите данни — ваши.</strong> Пробегът и годината остават при вас.</li>
+      <li><strong>Всички пресмятания се правят локално</strong>, в браузъра ви.</li>
+      <li><strong>Нищо не се изпраща към наши сървъри</strong> — защото няма такива.</li>
+      <li><strong>Без аналитики, без проследяване, без бисквитки.</strong></li>
+      <li><strong>Данните, които въвеждате</strong> (пробег, година, слайдери), остават само на вашето устройство.</li>
     </ul>
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="section-inner narrow">
-    <h2 class="section-title">Често задавани въпроси</h2>
+    <h2 class="centered">Често задавани въпроси</h2>
 
     <details class="faq">
       <summary>Безплатно ли е?</summary>
@@ -183,17 +191,22 @@
 
     <details class="faq">
       <summary>Колко точна е оценката?</summary>
-      <p>Точността зависи от броя сравними обяви. Панелът винаги показва колко обяви са използвани и индикатор за увереността. При малка извадка го третирайте като ориентир, а не абсолютна стойност.</p>
+      <p>Точността зависи от броя сравними обяви. Панелът винаги показва колко обяви са използвани и индикатор за увереността на оценката. При малка извадка го третирайте като ориентир, а не абсолютна стойност.</p>
     </details>
 
     <details class="faq">
       <summary>Използва ли разширението моите данни?</summary>
-      <p>Не. Всичко, което въвеждате, се съхранява локално и никога не напуска браузъра. Виж <a href="privacy.html">Политиката за поверителност</a>.</p>
+      <p>Не. Всичко, което въвеждате, се съхранява локално в браузъра и никога не го напуска. Виж <a href="privacy.html">Политиката за поверителност</a>.</p>
+    </details>
+
+    <details class="faq">
+      <summary>С кои сайтове работи?</summary>
+      <p>В момента — с <strong>mobile.bg</strong> и <strong>cars.bg</strong>. Разширението се активира автоматично, когато отворите страница с резултати от търсене на един от тези сайтове.</p>
     </details>
 
     <details class="faq">
       <summary>С кои браузъри работи?</summary>
-      <p>Chrome, Edge, Brave и други Chromium-базирани браузъри.</p>
+      <p>Chrome, Edge, Brave и други браузъри, базирани на Chromium.</p>
     </details>
 
     <details class="faq">
@@ -204,7 +217,7 @@
 </section>
 
 <section class="final-cta" id="install">
-  <div class="section-inner narrow">
+  <div class="section-inner narrow centered">
     <h2>Вземете информирано решение.</h2>
     <p class="lead">Инсталирайте безплатно и вижте пазара такъв, какъвто е — докато разглеждате.</p>
     <a class="cta-primary large" href="#" id="cws-link">Инсталирай за Chrome</a>

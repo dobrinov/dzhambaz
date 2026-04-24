@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Авто Анализ — See the real market price of any car</title>
-<meta name="description" content="Browser extension that shows the real market price of the car you're looking at, and recommends a price for your own. Free. Local. Private.">
+<meta name="description" content="Browser extension for mobile.bg and cars.bg that shows the real market price of the car you're looking at, and recommends a price for your own. Free. Local. Private.">
 <meta property="og:title" content="Авто Анализ — See the real market price">
 <meta property="og:description" content="Is this listing a bargain or overpriced? How much to ask for your car? Find out in seconds.">
 <meta property="og:image" content="../icon.png">
@@ -14,9 +14,9 @@
 <link rel="icon" href="../icon.png">
 <link rel="stylesheet" href="../styles.css">
 </head>
-<body>
+<body class="marketing">
 
-<header class="site-header on-dark">
+<header class="site-header">
   <a class="brand" href="index.html">
     <img src="../icon.png" alt="">
     <span>Авто Анализ</span>
@@ -32,21 +32,37 @@
 
 <main>
 
-<section class="hero-marketing">
+<section class="hero hero-marketing">
   <div class="hero-inner">
-    <div class="hero-text">
-      <img class="hero-logo" src="../icon.png" alt="">
-      <h1>What's your car <em>really</em> worth?</h1>
-      <p class="tagline">
-        See the real market price of every listing — and get a personal recommendation for your own car — right in your browser as you browse.
-      </p>
-      <a class="cta-primary" href="#install">Install for free</a>
-      <div class="micro-proof">
-        10 seconds to install &nbsp;·&nbsp; No sign-up &nbsp;·&nbsp; 100% private
-      </div>
+    <img class="hero-logo" src="../icon.png" alt="">
+    <h1>What's your car <em>really</em> worth?</h1>
+    <p class="tagline">
+      See the real market price of every listing — and get a personal recommendation for your own car — right in your browser as you browse.
+    </p>
+    <a class="cta-primary" href="#install">Install for free</a>
+    <div class="micro-proof">
+      10 seconds to install &nbsp;·&nbsp; No sign-up &nbsp;·&nbsp; 100% private
     </div>
+    <div class="supported-sites">
+      Works on <strong>mobile.bg</strong> and <strong>cars.bg</strong>
+    </div>
+  </div>
+</section>
 
-    <div class="hero-visual" aria-hidden="true">
+<section class="section demo">
+  <div class="demo-inner">
+    <div class="demo-copy">
+      <h2>The whole market — at a glance.</h2>
+      <p>
+        While you browse search results, Авто Анализ aggregates hundreds of listings and instantly shows you: median price, range, mileage — and if you enter your car's details, three realistic asking prices.
+      </p>
+      <ul class="bullets">
+        <li>Color-coded indicator on each listing: <strong>great deal, good price, above median, expensive</strong></li>
+        <li>Interactive valuation for your car, with sliders for condition and selling urgency</li>
+        <li>Three realistic asking prices: quick sale / fair ask / patient</li>
+      </ul>
+    </div>
+    <div class="demo-visual" aria-hidden="true">
       <div class="mock-panel">
         <div class="mock-header">
           <span class="mock-title">Авто Анализ</span>
@@ -97,88 +113,80 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="section-inner">
-    <h2 class="section-title">Built for sellers and buyers.</h2>
-    <p class="section-subtitle">One tool. Two clear ways to make a better car decision.</p>
+    <h2 class="centered">For sellers and buyers alike</h2>
     <div class="audience-grid">
       <div class="audience">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M5 9l7-7 7 7M19 14H9a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h10"/>
-          </svg>
-        </div>
         <div class="audience-tag">For sellers</div>
         <h3>Don't leave money on the table. Don't sit for months overpriced.</h3>
-        <p>Enter mileage and year, adjust condition and urgency. Get three realistic asking prices, grounded in comparable listings — pick the one that fits your situation.</p>
+        <p>
+          Enter mileage and year, adjust condition and urgency.
+          Get three realistic asking prices, grounded in comparable listings — pick the one that fits your situation.
+        </p>
       </div>
-
       <div class="audience">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            <line x1="11" y1="8" x2="11" y2="14"/>
-            <line x1="8" y1="11" x2="14" y2="11"/>
-          </svg>
-        </div>
         <div class="audience-tag">For buyers</div>
         <h3>Spot a bargain vs. an overpriced listing — instantly.</h3>
-        <p>A color-coded dot on each listing shows where it sits in the market. Compare price against mileage and year — without opening ten tabs.</p>
+        <p>
+          A color-coded dot on each listing shows where it sits in the market.
+          Compare price against mileage and year — without opening ten tabs.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="section-inner">
-    <h2 class="section-title">Works in seconds.</h2>
-    <p class="section-subtitle">No setup. No accounts. Just open a search and the panel appears.</p>
+    <h2 class="centered">Works in seconds</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Install</h3>
+        <h3>Install the extension</h3>
         <p>One click in the Chrome Web Store. No sign-up, no passwords.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Search for a car</h3>
-        <p>Search as you normally would. The panel opens automatically in the corner.</p>
+        <h3>Open any car search</h3>
+        <p>Search as you normally would — the panel appears automatically in the corner.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <h3>See the analysis</h3>
-        <p>Stats, color-coded listings, and your own valuation — ready immediately.</p>
+        <p>Stats, color-coded listings, and your personal valuation — ready in seconds.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section alt">
   <div class="section-inner narrow">
-    <h2 class="section-title">Privacy — no compromises.</h2>
-    <p class="section-subtitle">Авто Анализ is built around one rule: nothing ever leaves your device.</p>
+    <h2 class="centered">Privacy — no compromises</h2>
+    <p class="centered lead">
+      Авто Анализ is built around one rule: nothing ever leaves your device.
+    </p>
     <ul class="trust-list">
-      <li><strong>Local computation.</strong> Everything happens in your browser.</li>
-      <li><strong>Zero servers of ours.</strong> Because we don't run any.</li>
-      <li><strong>No tracking.</strong> No analytics, no cookies.</li>
-      <li><strong>Your data stays yours.</strong> Mileage and year never leave your machine.</li>
+      <li><strong>All computation happens locally</strong>, in your browser.</li>
+      <li><strong>Nothing is sent to our servers</strong> — because there are none.</li>
+      <li><strong>No analytics, no tracking, no cookies.</strong></li>
+      <li><strong>Anything you enter</strong> (mileage, year, sliders) stays only on your device.</li>
     </ul>
   </div>
 </section>
 
-<section class="section alt">
+<section class="section">
   <div class="section-inner narrow">
-    <h2 class="section-title">Frequently asked questions</h2>
+    <h2 class="centered">Frequently asked questions</h2>
 
     <details class="faq">
       <summary>Is it free?</summary>
-      <p>Yes, completely. No subscription, no ads, no premium tier.</p>
+      <p>Yes, completely. No subscription, no ads, no "premium" tier.</p>
     </details>
 
     <details class="faq">
       <summary>Do I need to register?</summary>
-      <p>No. Install and it works immediately — no accounts, no passwords.</p>
+      <p>No. Install the extension and it works immediately — no accounts, no passwords.</p>
     </details>
 
     <details class="faq">
@@ -188,7 +196,12 @@
 
     <details class="faq">
       <summary>Does the extension use my data?</summary>
-      <p>No. Everything you enter is stored locally and never leaves your browser. See the <a href="privacy.html">Privacy Policy</a>.</p>
+      <p>No. Everything you enter is stored locally in your browser and never leaves it. See the <a href="privacy.html">Privacy Policy</a>.</p>
+    </details>
+
+    <details class="faq">
+      <summary>Which sites does it support?</summary>
+      <p>Right now — <strong>mobile.bg</strong> and <strong>cars.bg</strong>. The extension activates automatically when you open a search-results page on either site.</p>
     </details>
 
     <details class="faq">
@@ -204,7 +217,7 @@
 </section>
 
 <section class="final-cta" id="install">
-  <div class="section-inner narrow">
+  <div class="section-inner narrow centered">
     <h2>Make an informed decision.</h2>
     <p class="lead">Install for free and see the market as it really is — while you browse.</p>
     <a class="cta-primary large" href="#" id="cws-link">Install for Chrome</a>
