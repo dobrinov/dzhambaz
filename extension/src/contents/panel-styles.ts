@@ -1,5 +1,5 @@
 export const PANEL_CSS = `
-    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Unbounded:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
     .dbz-panel {
       position: fixed;
@@ -71,13 +71,12 @@ export const PANEL_CSS = `
       flex-shrink: 0;
     }
     .dbz-brand {
-      font-family: "Fraunces", "Georgia", "Times New Roman", serif;
+      font-family: "Unbounded", "Segoe UI", system-ui, sans-serif;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 15px;
       color: #38bdf8;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.02em;
       line-height: 1;
-      font-variation-settings: "opsz" 96;
     }
     .dbz-head-actions { display: flex; align-items: center; gap: 6px; }
     .dbz-lang {
