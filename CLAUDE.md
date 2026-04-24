@@ -1,42 +1,107 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repo.
 
-## Project Overview
+## What this repo is
 
-wheelerdealer is a TypeScript web scraper that crawls car listings from two Bulgarian automotive sites (mobile.bg and cars.bg). It extracts structured car data and outputs JSON to stdout.
+**Джамбаз** — a Chrome extension that shows the real market price of
+cars on Bulgarian listing sites (mobile.bg, cars.bg), with a valuation
+tool for your own car. Its marketing site lives on a separate branch.
 
-## Commands
+- `main` branch → extension source (`extension/`) + this file + README
+- `website` branch → the public marketing/legal site hosted at
+  <https://dobrinov.github.io/dzhambaz/>
 
-- **Build:** `npm run build` (runs `tsc`, outputs to `dist/`)
-- **Test:** `npm test` (runs `vitest run`)
-- **Run CLI:** `npm run cli -- [options]` (runs `tsx src/cli.ts`)
-- **Example:** `npm run cli -- --site mobile.bg --make BMW --max-pages 3`
+## Commands (extension)
 
-## Architecture
+All extension commands run from `extension/`.
 
-The codebase follows a layered architecture with site-specific implementations:
+- **Dev:** `npm run dev` — Plasmo hot-reloading dev build
+- **Build:** `npm run build` — production bundle → `build/chrome-mv3-prod/`
+- **Zip for CWS:** `npm run build -- --zip`
+- **Typecheck:** `npx tsc --noEmit`
+
+## Extension architecture
+
+MV3 + Plasmo + React (content scripts, not a SPA). Two content scripts
+run on mobile.bg and cars.bg pages:
 
 ```
-CLI (cli.ts) → Crawlers (crawlers/) → Parsers (parsers/) → HTTP Client (http.ts)
+background.ts              service worker; one job: fetch URLs and
+                           decode the response with the right charset
+                           (mobile.bg is windows-1251).
+
+contents/
+  market-panel.tsx         fixed-right panel on search-results pages.
+                           3 tabs: Статистика · Обяви · Оцени моята.
+                           Owns the crawl orchestration: current-site
+                           pagination + a cross-site crawl that
+                           translates the filters into the other site's
+                           URL shape.
+  listing-badge.tsx        per-listing verdict overlay (under/fair/
+                           over/outlier) using stats from the panel.
+
+popup.tsx                  toolbar popup — combined-listings summary,
+                           language toggle.
+
+parsers/                   per-site HTML → CarListing[].
+shared/
+  types.ts                 CarListing, MarketStats, MarketPosition
+  stats.ts                 percentiles + outlier filtering
+  estimate.ts              linear regression price estimate + nearest-
+                           neighbours
+  market-position.ts       verdict/colour for a single listing vs stats
+  cross-site.ts            URL building + filter translation for the
+                           cross-site crawl
+  parse-helpers.ts         price/year/mileage/power extractors for BG
+                           listing text
+  i18n.ts                  BG + EN strings (BG is primary language)
 ```
 
-- **`src/types.ts`** — Core interfaces: `SearchFilters`, `CrawlOptions`, `CarListing`, `CrawlResult`, `Crawler`
-- **`src/http.ts`** — HTTP client with rate limiting (default 1500ms delay), exponential backoff retries, 429 handling, and charset detection for non-UTF-8 content
-- **`src/crawlers/`** — Site-specific crawling logic. Each crawler implements the `Crawler` interface with both `crawl()` (async generator for streaming) and `crawlAll()` (batch) methods
-- **`src/parsers/`** — Site-specific HTML parsing using cheerio. Each parser handles Bulgarian text, price formats, and unit extraction
-- **`src/cli.ts`** — CLI that outputs JSON to stdout and progress/errors to stderr
-- **`src/index.ts`** — Public exports (types and crawlers)
+### How the panel works
 
-### Site-specific differences
+1. Content script mounts on load (`document_idle`).
+2. Detects site, checks we're on a search-results page (URL prefix +
+   `от общо N` text marker — handles mobile.bg short-URL redirects).
+3. Parses the current page's listings from the live DOM, then starts
+   two crawls in parallel:
+   - `crawlCurrentSite` — paginates the current site.
+   - `crawlOtherSite` — translates filters into the other site's URL
+     and crawls there (capped at 50 pages for cross-site).
+4. Listings stream into React state as each page completes; Stats/
+   Listings/Price-mine views react.
 
-- **mobile.bg** — URL path-based filtering, slug-based brand/model, client-side model filtering with regex, supports custom search URLs
-- **cars.bg** — Query parameter-based filtering, dynamically discovers filter IDs from search page, fixed 50-page/1000-result limit
+The crawl is scoped to one content-script lifetime — navigating
+between search pages restarts it. (A background-service-worker
+implementation is the obvious upgrade but not currently shipped.)
 
-### Key conventions
+### Styling
 
-- ES modules (`"type": "module"` in package.json, Node16 module resolution)
-- TypeScript strict mode enabled
-- EUR/BGN conversion uses hardcoded rate: 1.95583
-- Tests use `vi.mock()` to mock the HTTP client and test with realistic HTML markup
-- Test files are colocated with source files (`*.test.ts` alongside `*.ts`)
+`market-panel.tsx` has its own `getStyle()` that injects a `<style>`
+tag. Classes are prefixed `.dbz-*` and the styling token family
+(`--panel-bg` etc.) is dark navy + cyan. Fonts (Inter / JetBrains
+Mono / Caveat) load from Google Fonts via `@import` — if the host page
+has a restrictive CSP the wordmark falls back to Georgia serif.
+
+`listing-badge.tsx` has its own `getStyle()` with `.wd-*` classes
+(older prefix, kept separate because it's scoped to its own injected
+style element).
+
+## Conventions
+
+- ES modules, Node16 resolution, TypeScript strict mode.
+- EUR/BGN conversion uses a fixed rate of 1.95583.
+- Tests (where present) colocate as `*.test.ts` next to source.
+- Storage keys:
+  - `listings:mobile.bg`, `listings:cars.bg`, `listings:combined` —
+    used by both content scripts + popup.
+  - `wd-lang` — language toggle (kept as-is for back-compat).
+  - `wd-estimate-inputs` — price-my-car form state.
+
+## Marketing site
+
+On the `website` branch, a static HTML/CSS site using the same design
+language (Inter + Caveat + JBMono, navy + cyan). BG is the default
+language; EN lives under `en/`. `.nojekyll` is present because Pages
+defaults to Jekyll processing. The site is served from the repo's
+GitHub Pages configuration (Settings → Pages → Branch: `website`).

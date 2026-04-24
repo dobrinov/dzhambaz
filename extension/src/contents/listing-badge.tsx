@@ -182,17 +182,15 @@ export default function ListingBadge({ anchor }: { anchor: { element: Element } 
     compute()
 
     // Listen for storage changes (when panel updates combined listings or language changes)
-    const unsubscribe = storage.watch({
-      "listings:combined": () => compute(),
-      "wd-lang": (c) => { if (c.newValue) setLang(c.newValue as Lang) },
-    })
-
+    const watchers = {
+      "listings:combined": () => { compute() },
+      "wd-lang": (c: chrome.storage.StorageChange) => {
+        if (c.newValue) setLang(c.newValue as Lang)
+      },
+    }
+    storage.watch(watchers)
     return () => {
-      if (typeof unsubscribe === "function") {
-        unsubscribe()
-      } else if (unsubscribe && typeof (unsubscribe as Promise<() => void>).then === "function") {
-        (unsubscribe as Promise<() => void>).then((fn) => fn?.())
-      }
+      storage.unwatch(watchers)
     }
   }, [anchor.element])
 
