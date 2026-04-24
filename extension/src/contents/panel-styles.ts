@@ -289,6 +289,9 @@ export const PANEL_CSS = `
     .dbz-tick {
       position: absolute; text-align: center; line-height: 1.2;
       transform: translateX(-50%);
+      white-space: nowrap;
+      background: var(--panel-bg, #1e293b);
+      padding: 0 3px;
     }
     .dbz-tick-label {
       font-family: "JetBrains Mono", ui-monospace, monospace;

@@ -158,19 +158,25 @@ export default function MarketPanel() {
     return m
   }, [allListings, combinedStats])
 
+  // Histograms are built within the stats (outlier-filtered) range so the
+  // bins share a coordinate system with the p25/median/p75 markers.
   const priceHist = useMemo(() => {
+    const range = combinedStats?.price
+    if (!range) return null
     const prices = allListings
       .map((l) => l.priceEur)
-      .filter((p): p is number => p != null && p > 0)
+      .filter((p): p is number => p != null && p >= range.min && p <= range.max)
     return buildHistogram(prices, HIST_BINS)
-  }, [allListings])
+  }, [allListings, combinedStats])
 
   const kmHist = useMemo(() => {
+    const range = combinedStats?.mileage
+    if (!range) return null
     const km = allListings
       .map((l) => l.mileageKm)
-      .filter((m): m is number => m != null && m > 0)
+      .filter((m): m is number => m != null && m >= range.min && m <= range.max)
     return buildHistogram(km, HIST_BINS)
-  }, [allListings])
+  }, [allListings, combinedStats])
 
   const outlierCount = useMemo(() => {
     let n = 0
@@ -712,6 +718,7 @@ function StatsTab({
           hist={priceHist}
           stats={stats.price}
           format={(v) => "€" + fmt(v)}
+          formatShort={(v) => "€" + fmtK(v)}
         />
       )}
 
@@ -724,6 +731,7 @@ function StatsTab({
             hist={kmHist}
             stats={stats.mileage}
             format={(v) => fmtK(v) + " km"}
+            formatShort={(v) => fmtK(v)}
           />
         </>
       )}
@@ -760,16 +768,21 @@ function Distro({
   hist,
   stats,
   format,
+  formatShort,
 }: {
   title: string
   unit: string
   hist: Histogram
   stats: { min: number; max: number; p25: number; p75: number; median: number }
   format: (v: number) => string
+  formatShort: (v: number) => string
 }) {
   const maxCount = Math.max(...hist.counts)
-  const range = stats.max - stats.min || 1
-  const pct = (v: number) => Math.max(0, Math.min(100, ((v - stats.min) / range) * 100))
+  // Bins and markers share the same coordinate space (hist.min → hist.max,
+  // which was filtered to the stats range by the parent useMemo).
+  const coordMin = hist.min
+  const coordRange = (hist.max - hist.min) || 1
+  const pct = (v: number) => Math.max(0, Math.min(100, ((v - coordMin) / coordRange) * 100))
 
   return (
     <div className="dbz-distro">
@@ -778,13 +791,13 @@ function Distro({
           <span className="dbz-eyebrow">{title}</span>
           <span className="dbz-mono" style={{ fontSize: 10, color: "#475569", marginLeft: 6 }}>{unit}</span>
         </div>
-        <span className="dbz-distro-range">{format(stats.min)} → {format(stats.max)}</span>
+        <span className="dbz-distro-range">{format(hist.min)} → {format(hist.max)}</span>
       </div>
 
       <div className="dbz-hist">
         {hist.counts.map((c, i) => {
           const h = maxCount ? (c / maxCount) * 100 : 0
-          const binCenter = stats.min + (i + 0.5) * hist.step
+          const binCenter = hist.min + (i + 0.5) * hist.step
           const inIQR = binCenter >= stats.p25 && binCenter <= stats.p75
           return (
             <div
@@ -798,9 +811,9 @@ function Distro({
       </div>
       <div className="dbz-hist-base" />
       <div className="dbz-axis">
-        <AxisTick pct={pct(stats.p25)} label="P25" value={format(stats.p25)} />
-        <AxisTick pct={pct(stats.median)} label={t("median", "bg")} value={format(stats.median)} emphasize />
-        <AxisTick pct={pct(stats.p75)} label="P75" value={format(stats.p75)} />
+        <AxisTick pct={pct(stats.p25)} label="P25" value={formatShort(stats.p25)} />
+        <AxisTick pct={pct(stats.median)} label={t("median", "bg")} value={formatShort(stats.median)} emphasize />
+        <AxisTick pct={pct(stats.p75)} label="P75" value={formatShort(stats.p75)} />
       </div>
     </div>
   )
