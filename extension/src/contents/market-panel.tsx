@@ -116,7 +116,12 @@ function parseHtml(html: string): Document {
 // ── Main component ──────────────────────────────────────────────────────────
 
 export default function MarketPanel() {
-  const [collapsed, setCollapsed] = useState(false)
+  const [panelState, setPanelState] = useStorage<"open" | "mini">("wd-panel-state", "open")
+  const [miniPosStored, setMiniPosStored] = useStorage<{ x: number; y: number } | null>(
+    "wd-mini-pos",
+    null
+  )
+  const [dragPos, setDragPos] = useState<{ x: number; y: number } | null>(null)
   const [tab, setTab] = useState<Tab>("stats")
   const [site, setSite] = useState<"mobile.bg" | "cars.bg" | null>(null)
   const [isSearchPage, setIsSearchPage] = useState(false)
@@ -477,15 +482,34 @@ export default function MarketPanel() {
     (currentProgress && !currentProgress.done) ||
     (otherProgress && !otherProgress.done)
 
+  if (panelState === "mini") {
+    return (
+      <MiniIcon
+        storedPos={miniPosStored}
+        dragPos={dragPos}
+        setDragPos={setDragPos}
+        onPersistPos={(pos) => setMiniPosStored(pos)}
+        onOpen={() => setPanelState("open")}
+      />
+    )
+  }
+
   return (
-    <div className={`dbz-panel ${collapsed ? "dbz-collapsed" : ""}`}>
-      <div className="dbz-head" onClick={() => setCollapsed(!collapsed)}>
+    <div className="dbz-panel">
+      <div className="dbz-head">
         <span className="dbz-brand">Джамбаз</span>
         <div className="dbz-head-actions">
           <button className="dbz-lang" onClick={toggleLang}>
             {lang === "en" ? "BG" : "EN"}
           </button>
-          <span className="dbz-toggle">{collapsed ? "+" : "–"}</span>
+          <button
+            className="dbz-hide-btn"
+            title="Minimize"
+            onClick={() => setPanelState("mini")}>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M3 8h10"/>
+            </svg>
+          </button>
         </div>
       </div>
 
@@ -1221,6 +1245,111 @@ function ValueResult({
           <span className="dbz-tier-val">€{fmt(estimate.patientAsk)}</span>
         </div>
       </div>
+    </div>
+  )
+}
+
+// ── Minimized floating icon (draggable) ─────────────────────────────────
+
+const MINI_SIZE = 48
+const DRAG_THRESHOLD = 4
+
+function defaultMiniPos(): { x: number; y: number } {
+  return {
+    x: Math.max(8, window.innerWidth - MINI_SIZE - 16),
+    y: Math.max(8, Math.round(window.innerHeight / 2 - MINI_SIZE / 2)),
+  }
+}
+
+function clampToViewport(pos: { x: number; y: number }) {
+  return {
+    x: Math.max(4, Math.min(window.innerWidth - MINI_SIZE - 4, pos.x)),
+    y: Math.max(4, Math.min(window.innerHeight - MINI_SIZE - 4, pos.y)),
+  }
+}
+
+function MiniIcon({
+  storedPos,
+  dragPos,
+  setDragPos,
+  onPersistPos,
+  onOpen,
+}: {
+  storedPos: { x: number; y: number } | null | undefined
+  dragPos: { x: number; y: number } | null
+  setDragPos: (p: { x: number; y: number } | null) => void
+  onPersistPos: (p: { x: number; y: number }) => void
+  onOpen: () => void
+}) {
+  const [dragging, setDragging] = useState(false)
+  const dragMetaRef = useRef<{
+    startX: number
+    startY: number
+    origX: number
+    origY: number
+    moved: boolean
+  } | null>(null)
+
+  const pos = dragPos ?? storedPos ?? defaultMiniPos()
+
+  function onMouseDown(e: React.MouseEvent) {
+    e.preventDefault()
+    const clamped = clampToViewport(pos)
+    dragMetaRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      origX: clamped.x,
+      origY: clamped.y,
+      moved: false,
+    }
+    setDragging(true)
+  }
+
+  useEffect(() => {
+    if (!dragging) return
+
+    function onMove(e: MouseEvent) {
+      const meta = dragMetaRef.current
+      if (!meta) return
+      const dx = e.clientX - meta.startX
+      const dy = e.clientY - meta.startY
+      if (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD) {
+        meta.moved = true
+      }
+      setDragPos(clampToViewport({ x: meta.origX + dx, y: meta.origY + dy }))
+    }
+
+    function onUp() {
+      const meta = dragMetaRef.current
+      setDragging(false)
+      dragMetaRef.current = null
+      if (!meta) return
+      if (!meta.moved) {
+        setDragPos(null)
+        onOpen()
+      } else if (dragPos) {
+        onPersistPos(dragPos)
+        setDragPos(null)
+      }
+    }
+
+    document.addEventListener("mousemove", onMove)
+    document.addEventListener("mouseup", onUp)
+    return () => {
+      document.removeEventListener("mousemove", onMove)
+      document.removeEventListener("mouseup", onUp)
+    }
+  }, [dragging, dragPos, onOpen, onPersistPos, setDragPos])
+
+  return (
+    <div
+      className={`dbz-mini ${dragging ? "dbz-mini-dragging" : ""}`}
+      style={{ left: pos.x, top: pos.y }}
+      onMouseDown={onMouseDown}
+      title="Джамбаз"
+      role="button"
+      aria-label="Open Джамбаз panel">
+      Дж
     </div>
   )
 }

@@ -3,19 +3,58 @@ export const PANEL_CSS = `
 
     .dbz-panel {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 0;
+      right: 0;
+      bottom: 0;
       z-index: 999999;
-      width: 340px;
-      max-height: calc(100vh - 20px);
+      width: 360px;
       display: flex; flex-direction: column;
       background: #1e293b;
       color: #e2e8f0;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px -20px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3);
+      border-left: 1px solid #334155;
+      border-radius: 12px 0 0 12px;
+      box-shadow: -20px 0 60px -20px rgba(0,0,0,0.5), -2px 0 10px rgba(0,0,0,0.3);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
       font-size: 12.5px;
+      animation: dbz-drawer-in 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes dbz-drawer-in {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    /* Minimized (floating) icon — drags freely, clicks open the drawer */
+    .dbz-mini {
+      position: fixed;
+      z-index: 999999;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #1e293b;
+      border: 1px solid #38bdf8;
+      display: grid; place-items: center;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(56,189,248,0);
+      transition: box-shadow 0.2s ease, transform 0.15s ease;
+      font-family: "Caveat", "Georgia", serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #38bdf8;
+      line-height: 1;
+      animation: dbz-mini-in 0.2s ease;
+    }
+    .dbz-mini:hover {
+      box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(56,189,248,0.18);
+      transform: scale(1.05);
+    }
+    .dbz-mini-dragging {
+      cursor: grabbing;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 4px rgba(56,189,248,0.3);
+      transform: scale(1.08);
+    }
+    @keyframes dbz-mini-in {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
     .dbz-mono { font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace; font-variant-numeric: tabular-nums; }
     .dbz-display { font-family: "Caveat", "Georgia", serif; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
@@ -32,10 +71,9 @@ export const PANEL_CSS = `
       padding: 11px 14px 10px;
       border-bottom: 1px solid #334155;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      cursor: pointer; user-select: none;
+      user-select: none;
       flex-shrink: 0;
     }
-    .dbz-head:hover { background: rgba(255,255,255,0.03); }
     .dbz-brand {
       font-family: "Caveat", "Georgia", serif;
       font-weight: 700;
@@ -57,10 +95,24 @@ export const PANEL_CSS = `
       cursor: pointer;
     }
     .dbz-lang:hover { color: #e2e8f0; border-color: #475569; }
-    .dbz-toggle {
-      font-size: 11px; color: #94a3b8;
-      width: 20px; text-align: center; user-select: none;
+    .dbz-hide-btn {
+      width: 26px; height: 26px;
+      display: grid; place-items: center;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+      transition: all 0.12s ease;
     }
+    .dbz-hide-btn:hover {
+      background: rgba(255,255,255,0.06);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+    .dbz-hide-btn svg { width: 14px; height: 14px; display: block; }
 
     .dbz-tabs {
       display: flex; padding: 0 8px;
@@ -112,11 +164,6 @@ export const PANEL_CSS = `
     }
     .dbz-body::-webkit-scrollbar { width: 6px; }
     .dbz-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
-    .dbz-collapsed .dbz-body,
-    .dbz-collapsed .dbz-tabs,
-    .dbz-collapsed .dbz-scanbar,
-    .dbz-collapsed .dbz-empty { display: none; }
-    .dbz-collapsed .dbz-head { border-bottom: none; border-radius: 12px; }
 
     /* ── Empty state ── */
     .dbz-empty {
