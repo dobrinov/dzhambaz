@@ -12,7 +12,7 @@ export const PANEL_CSS = `
       background: #1e293b;
       color: #e2e8f0;
       border-left: 1px solid #334155;
-      border-radius: 12px 0 0 12px;
+      border-radius: 0;
       box-shadow: -20px 0 60px -20px rgba(0,0,0,0.5), -2px 0 10px rgba(0,0,0,0.3);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
       font-size: 12.5px;
@@ -36,13 +36,9 @@ export const PANEL_CSS = `
       user-select: none;
       box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(56,189,248,0);
       transition: box-shadow 0.2s ease, transform 0.15s ease;
-      font-family: "Caveat", "Georgia", serif;
-      font-weight: 700;
-      font-size: 24px;
-      color: #38bdf8;
-      line-height: 1;
       animation: dbz-mini-in 0.2s ease;
     }
+    .dbz-mini svg { pointer-events: none; }
     .dbz-mini:hover {
       box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 4px rgba(56,189,248,0.18);
       transform: scale(1.05);

@@ -504,10 +504,10 @@ export default function MarketPanel() {
           </button>
           <button
             className="dbz-hide-btn"
-            title="Minimize"
+            title="Close"
             onClick={() => setPanelState("mini")}>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <path d="M3 8h10"/>
+              <path d="M4 4l8 8M12 4l-8 8"/>
             </svg>
           </button>
         </div>
@@ -1257,7 +1257,7 @@ const DRAG_THRESHOLD = 4
 function defaultMiniPos(): { x: number; y: number } {
   return {
     x: Math.max(8, window.innerWidth - MINI_SIZE - 16),
-    y: Math.max(8, Math.round(window.innerHeight / 2 - MINI_SIZE / 2)),
+    y: Math.max(8, window.innerHeight - MINI_SIZE - 16),
   }
 }
 
@@ -1349,7 +1349,11 @@ function MiniIcon({
       title="Джамбаз"
       role="button"
       aria-label="Open Джамбаз panel">
-      Дж
+      <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.6" strokeLinejoin="round" width="24" height="24">
+        <path d="M4 13l1.6-4.2c.3-.8 1.1-1.3 2-1.3h8.8c.9 0 1.7.5 2 1.3L20 13v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H7v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4z"/>
+        <circle cx="8" cy="14.5" r="1" fill="#38bdf8"/>
+        <circle cx="16" cy="14.5" r="1" fill="#38bdf8"/>
+      </svg>
     </div>
   )
 }
