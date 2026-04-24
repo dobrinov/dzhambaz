@@ -1,6 +1,6 @@
 export type Lang = "en" | "bg"
 
-export const DEFAULT_LANG: Lang = "en"
+export const DEFAULT_LANG: Lang = "bg"
 
 const translations = {
   // Panel

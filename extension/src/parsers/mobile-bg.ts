@@ -119,14 +119,15 @@ export function detectMobileBgPagination(doc: Document = document): {
     }
   })
 
-  // Also try parsing "1 - 20 от общо 2233" text to estimate pages
-  if (maxPage <= 1) {
-    const bodyText = doc.body?.textContent ?? ""
-    const totalMatch = bodyText.match(/от общо\s+([\d\s]+)\s+Обяви/i)
-    if (totalMatch) {
-      const total = parseInt(totalMatch[1].replace(/\s/g, ""))
-      if (total > 0) maxPage = Math.ceil(total / 20)
-    }
+  // mobile.bg's pagination UI only renders links to the next 2–3 pages, so
+  // always derive total pages from "от общо N" too and take the max.
+  // mobile.bg renders either "от общо 2395 Обяви" or, when the count is
+  // capped, "от общо 3000+" — accept both.
+  const bodyText = doc.body?.textContent ?? ""
+  const totalMatch = bodyText.match(/от общо\s+([\d\s]+?)\s*(?:\+|Обяви)/i)
+  if (totalMatch) {
+    const total = parseInt(totalMatch[1].replace(/\s/g, ""))
+    if (total > 0) maxPage = Math.max(maxPage, Math.ceil(total / 20))
   }
 
   // Preserve query params (e.g. ?engine_power=218) — they contain filters

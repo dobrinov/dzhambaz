@@ -185,17 +185,22 @@ function extractFromCarsBg(): SearchFilters | null {
   const url = new URL(window.location.href)
   const params = url.searchParams
 
-  // Make from page title: "AUDI A4 - автомобили - CARS.bg"
-  let make: string | null = null
-  let model: string | null = null
-  const title = document.title
-  const titleMatch = title.match(
-    /^([A-Za-z0-9][A-Za-z0-9._-]*)(?:\s+([A-Za-z0-9][A-Za-z0-9._/ -]*))?\s*-/i
-  )
-  if (titleMatch) {
-    make = titleMatch[1].trim()
-    model = titleMatch[2]?.trim() || null
+  // cars.bg's page title is always the generic "CARS.BG - Търсиш..."; derive
+  // make/model from the URL's brandId / models[] params by looking up the
+  // associated <label> text rendered on the page.
+  function labelFor(name: string, value: string | null): string | null {
+    if (!value) return null
+    const input = document.querySelector(
+      `input[name="${name}"][value="${value}"]`
+    )
+    const id = input?.getAttribute("id")
+    if (!id) return null
+    const text = document.querySelector(`label[for="${id}"]`)?.textContent?.trim()
+    return text || null
   }
+
+  const make = labelFor("brandId", params.get("brandId"))
+  const model = labelFor("models[]", params.get("models[]"))
   if (!make) return null
 
   const yearFrom = params.get("yearFrom") ? parseInt(params.get("yearFrom")!) : null
@@ -437,9 +442,10 @@ const NORM_TO_MOBILE_BG_FUEL_SLUG: Record<string, string> = {
 }
 
 export function buildMobileBgSearchUrl(filters: SearchFilters, page: number): string {
-  // Use /search/ URL pattern (current mobile.bg format)
+  // `/search/...` renders the search form (0 listings); `/obiavi/...` is the
+  // real results URL (also what mobile.bg canonicalizes to).
   const segments: string[] = [
-    "https://www.mobile.bg/search/avtomobili-dzhipove",
+    "https://www.mobile.bg/obiavi/avtomobili-dzhipove",
   ]
 
   segments.push(
@@ -504,13 +510,11 @@ export function detectTotalPages(
         if (page > maxPage) maxPage = page
       }
     })
-    if (maxPage <= 1) {
-      const bodyText = doc.body?.textContent ?? ""
-      const totalMatch = bodyText.match(/от общо\s+([\d\s]+)\s+Обяви/i)
-      if (totalMatch) {
-        const total = parseInt(totalMatch[1].replace(/\s/g, ""))
-        if (total > 0) maxPage = Math.ceil(total / 20)
-      }
+    const bodyText = doc.body?.textContent ?? ""
+    const totalMatch = bodyText.match(/от общо\s+([\d\s]+?)\s*(?:\+|Обяви)/i)
+    if (totalMatch) {
+      const total = parseInt(totalMatch[1].replace(/\s/g, ""))
+      if (total > 0) maxPage = Math.max(maxPage, Math.ceil(total / 20))
     }
     return maxPage
   }

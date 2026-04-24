@@ -66,7 +66,9 @@ interface SiteCrawlProgress {
   done: boolean
 }
 
-const storage = new Storage()
+// `local` (10 MB) — `sync` (default) has an 8 KB per-item cap that silently
+// fails for full listings arrays, breaking the listing-badge content script.
+const storage = new Storage({ area: "local" })
 const DELAY_MS = 300
 const CROSS_SITE_MAX_PAGES = 50
 const VISIBLE_LISTINGS = 100
@@ -80,7 +82,10 @@ function detectSite(): "mobile.bg" | "cars.bg" | null {
 
 function isSearchResultsPage(site: "mobile.bg" | "cars.bg"): boolean {
   const path = window.location.pathname.toLowerCase()
-  if (site === "mobile.bg") return path.startsWith("/search")
+  if (site === "mobile.bg") {
+    // `/search/` is the form page, `/obiavi/` (canonical) is the results page.
+    return path.startsWith("/obiavi") || path.startsWith("/search")
+  }
   if (site === "cars.bg") return path.includes("carslist")
   return false
 }
@@ -158,6 +163,7 @@ export default function MarketPanel() {
   const [sortKey, setSortKey] = useState<SortKey>("deal")
   const [listingFilter, setListingFilter] = useState<"all" | "deals" | "outliers">("all")
   const [showAll, setShowAll] = useState(false)
+  const [filters, setFilters] = useState<SearchFilters | null>(null)
   const crawlingRef = useRef(false)
   const [lang, setLang] = useStorage<Lang>("wd-lang", DEFAULT_LANG)
   const [estimateInputs, setEstimateInputs] = useStorage<EstimateInputs>(
@@ -299,13 +305,14 @@ export default function MarketPanel() {
 
     setCurrentListings(livePage)
 
-    const filters = extractSearchFilters(detectedSite)
+    const extractedFilters = extractSearchFilters(detectedSite)
+    setFilters(extractedFilters)
 
     // Detect "new search": stable key derived from site + filters. Pagination
     // within the same search keeps the key stable; changing make/model/filters
     // produces a new key. Auto-open the drawer when the key changes (if the
     // user hasn't disabled that preference).
-    const key = searchKeyOf(detectedSite, filters)
+    const key = searchKeyOf(detectedSite, extractedFilters)
     if (key !== lastSearchKey) {
       setLastSearchKey(key)
       if (prefAutoOpen) setPanelState("open")
@@ -313,7 +320,7 @@ export default function MarketPanel() {
 
     if (livePage.length > 0) {
       crawlCurrentSite(detectedSite)
-      if (prefCrossSite) crawlOtherSite(detectedSite, filters)
+      if (prefCrossSite) crawlOtherSite(detectedSite, extractedFilters)
     }
   }, [])
 
@@ -625,6 +632,7 @@ export default function MarketPanel() {
                 showOutlierAlert={prefOutlierAlerts ?? true}
                 mobileBgCount={mobileBgCount}
                 carsBgCount={carsBgCount}
+                filters={filters}
                 lang={lang}
               />
             )}
@@ -737,6 +745,7 @@ function StatsTab({
   showOutlierAlert,
   mobileBgCount,
   carsBgCount,
+  filters,
   lang,
 }: {
   allListings: CarListing[]
@@ -747,6 +756,7 @@ function StatsTab({
   showOutlierAlert: boolean
   mobileBgCount: number
   carsBgCount: number
+  filters: SearchFilters | null
   lang: Lang
 }) {
   if (allListings.length === 0) {
@@ -764,7 +774,9 @@ function StatsTab({
         <div>
           <div className="dbz-eyebrow">{t("market", lang)}</div>
           <div className="dbz-context-title">
-            {allListings[0]?.title?.split(/[·.,]/)[0]?.slice(0, 32) ?? t("listings", lang)}
+            {filters?.make
+              ? `${filters.make}${filters.model ? ` ${filters.model}` : ""}`
+              : allListings[0]?.title?.split(/[·.,]/)[0]?.slice(0, 32) ?? t("listings", lang)}
             {yearMin && yearMax ? ` · ${yearMin}–${yearMax}` : ""}
           </div>
         </div>
@@ -813,11 +825,11 @@ function StatsTab({
       {priceHist && stats?.price && (
         <Distro
           title={t("priceEur", lang)}
-          unit="EUR"
           hist={priceHist}
           stats={stats.price}
           format={(v) => "€" + fmt(v)}
           formatShort={(v) => "€" + fmtK(v)}
+          lang={lang}
         />
       )}
 
@@ -826,11 +838,11 @@ function StatsTab({
           <div className="dbz-divider" />
           <Distro
             title={t("mileageKm", lang)}
-            unit="KM"
             hist={kmHist}
             stats={stats.mileage}
             format={(v) => fmtK(v) + " km"}
             formatShort={(v) => fmtK(v)}
+            lang={lang}
           />
         </>
       )}
@@ -863,18 +875,18 @@ function MiniStat({ label, value, hint }: { label: string; value: string; hint: 
 
 function Distro({
   title,
-  unit,
   hist,
   stats,
   format,
   formatShort,
+  lang,
 }: {
   title: string
-  unit: string
   hist: Histogram
   stats: { min: number; max: number; p25: number; p75: number; median: number }
   format: (v: number) => string
   formatShort: (v: number) => string
+  lang: Lang
 }) {
   const maxCount = Math.max(...hist.counts)
   // Bins and markers share the same coordinate space (hist.min → hist.max,
@@ -886,10 +898,7 @@ function Distro({
   return (
     <div className="dbz-distro">
       <div className="dbz-distro-head">
-        <div>
-          <span className="dbz-eyebrow">{title}</span>
-          <span className="dbz-mono" style={{ fontSize: 10, color: "#475569", marginLeft: 6 }}>{unit}</span>
-        </div>
+        <span className="dbz-eyebrow">{title}</span>
         <span className="dbz-distro-range">{format(hist.min)} → {format(hist.max)}</span>
       </div>
 
@@ -911,7 +920,7 @@ function Distro({
       <div className="dbz-hist-base" />
       <div className="dbz-axis">
         <AxisTick pct={pct(stats.p25)} label="P25" value={formatShort(stats.p25)} />
-        <AxisTick pct={pct(stats.median)} label={t("median", "bg")} value={formatShort(stats.median)} emphasize />
+        <AxisTick pct={pct(stats.median)} label={t("median", lang)} value={formatShort(stats.median)} emphasize />
         <AxisTick pct={pct(stats.p75)} label="P75" value={formatShort(stats.p75)} />
       </div>
     </div>
@@ -1127,9 +1136,10 @@ function PriceTab({
   const mileageStr = inputs.mileageKm === null ? "" : String(inputs.mileageKm)
   const yearStr = inputs.year === null ? "" : String(inputs.year)
 
-  function parseNum(s: string): number | null {
+  function parseNum(s: string, max = 2_000_000): number | null {
     const n = parseInt(s.replace(/\D+/g, ""), 10)
-    return Number.isFinite(n) && n > 0 ? n : null
+    if (!Number.isFinite(n) || n <= 0) return null
+    return Math.min(n, max)
   }
 
   return (
@@ -1145,6 +1155,7 @@ function PriceTab({
           <input
             type="text"
             inputMode="numeric"
+            maxLength={7}
             className="dbz-input"
             value={mileageStr}
             placeholder="150000"
@@ -1159,10 +1170,11 @@ function PriceTab({
           <input
             type="text"
             inputMode="numeric"
+            maxLength={4}
             className="dbz-input"
             value={yearStr}
             placeholder="2015"
-            onChange={(e) => updateInput("year", parseNum(e.target.value))}
+            onChange={(e) => updateInput("year", parseNum(e.target.value, 9999))}
           />
         </div>
       </div>

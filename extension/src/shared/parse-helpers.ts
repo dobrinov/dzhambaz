@@ -110,5 +110,5 @@ export function parseFuelCarsBg(text: string): string | null {
   if (lower.includes("газ") || lower.includes("gas") || lower.includes("lpg")) return "gas"
   if (lower.includes("хибрид") || lower.includes("hybrid")) return "hybrid"
   if (lower.includes("електр") || lower.includes("electric")) return "electric"
-  return text.trim() || null
+  return null
 }

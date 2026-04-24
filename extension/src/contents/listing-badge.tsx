@@ -20,6 +20,10 @@ export const config: PlasmoCSConfig = {
 export const getStyle = () => {
   const style = document.createElement("style")
   style.textContent = `
+    /* Plasmo sets z-index: 2147483647 on the host container by default, which
+       makes badges paint on top of the panel. Drop it so the panel (also at
+       max z-index, but position: fixed) stays on top. */
+    :host, #plasmo-shadow-container { z-index: 1 !important; }
     .wd-badge {
       display: inline-flex;
       align-items: center;
@@ -131,7 +135,7 @@ function extractPriceFromAnchor(
   }
 }
 
-const storage = new Storage()
+const storage = new Storage({ area: "local" })
 
 export default function ListingBadge({ anchor }: { anchor: { element: Element } }) {
   const [position, setPosition] = useState<MarketPosition | null>(null)

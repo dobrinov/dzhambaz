@@ -1,9 +1,14 @@
 import { useState, useMemo } from "react"
+import { Storage } from "@plasmohq/storage"
 import { useStorage } from "@plasmohq/storage/hook"
 
 import type { CarListing, MarketStats } from "~shared/types"
 import { computeStats } from "~shared/stats"
 import { type Lang, DEFAULT_LANG, t } from "~shared/i18n"
+
+// Listings are written to `local` by the content scripts (sync has an 8 KB
+// per-item cap that truncates full crawls).
+const listingsStorage = new Storage({ area: "local" })
 
 type SortKey = "source" | "title" | "priceEur" | "year" | "mileageKm"
 type SortDir = "asc" | "desc"
@@ -28,8 +33,14 @@ function StatsRow({ label, stats, lang }: { label: string; stats: MarketStats; l
 }
 
 export default function Popup() {
-  const [mobileBgListings] = useStorage<CarListing[]>("listings:mobile.bg", [])
-  const [carsBgListings] = useStorage<CarListing[]>("listings:cars.bg", [])
+  const [mobileBgListings] = useStorage<CarListing[]>(
+    { key: "listings:mobile.bg", instance: listingsStorage },
+    []
+  )
+  const [carsBgListings] = useStorage<CarListing[]>(
+    { key: "listings:cars.bg", instance: listingsStorage },
+    []
+  )
   const [lang, setLang] = useStorage<Lang>("wd-lang", DEFAULT_LANG)
 
   const [sortKey, setSortKey] = useState<SortKey>("priceEur")

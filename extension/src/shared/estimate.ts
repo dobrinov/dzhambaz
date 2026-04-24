@@ -137,9 +137,15 @@ export function estimateCarPrice(
     clean.map((l) => ({ x: l.mileageKm!, y: l.priceEur! }))
   )
 
+  // Don't extrapolate the regression far outside the comparable range —
+  // typos like 100,150,000 km would otherwise ride the slope into nonsense.
+  const cleanMileages = clean.map((l) => l.mileageKm!)
+  const maxComparableKm = Math.max(...cleanMileages)
+  const inRange = inputs.mileageKm <= maxComparableKm * 1.25
+
   let baseline: number
   let perKm: number | null = null
-  if (regression && regression.slope < 0 && clean.length >= 8) {
+  if (regression && regression.slope < 0 && clean.length >= 8 && inRange) {
     baseline = regression.slope * inputs.mileageKm + regression.intercept
     perKm = regression.slope
   } else {
@@ -165,7 +171,8 @@ export function estimateCarPrice(
     recommendedTier === "patient" ? patientAsk : fairAsk
 
   let confidence: Confidence
-  if (clean.length >= 30) confidence = "high"
+  if (!inRange) confidence = "low"
+  else if (clean.length >= 30) confidence = "high"
   else if (clean.length >= 10) confidence = "medium"
   else confidence = "low"
 
