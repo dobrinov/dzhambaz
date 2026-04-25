@@ -70,6 +70,62 @@ const translations = {
     bg: "Чета обявите от това търсене. Статистиката ще се появи след малко.",
   },
 
+  // Welcome page (tabs/welcome)
+  welcomeEyebrow: {
+    en: "Installed · Ready to go",
+    bg: "Инсталиран · Готов за работа",
+  },
+  welcomeHeroTitle: {
+    en: "Welcome to",
+    bg: "Добре дошли в",
+  },
+  welcomeHeroAccent: { en: "Джамбаз", bg: "Джамбаз" },
+  welcomeLede: {
+    en: "Open mobile.bg or cars.bg, run a search, and Джамбаз will tell you the real market price — instantly, in your browser.",
+    bg: "Отвори mobile.bg или cars.bg, направи търсене и Джамбаз ще ти каже реалната пазарна цена — мигновено, в браузъра.",
+  },
+  welcomeOpenMobileBg: { en: "Open mobile.bg", bg: "Отвори mobile.bg" },
+  welcomeOpenCarsBg: { en: "Open cars.bg", bg: "Отвори cars.bg" },
+  welcomeSupportedLabel: { en: "Works on", bg: "Работи на" },
+
+  welcomeStepsKicker: { en: "Quick start", bg: "Бърз старт" },
+  welcomeStepsTitle: { en: "Three steps to a fair price", bg: "Три стъпки до справедлива цена" },
+  welcomeStepsLede: {
+    en: "No setup, no signup. Just browse like you normally would.",
+    bg: "Без настройка, без регистрация. Просто разглеждай както обикновено.",
+  },
+  welcomeStep1Title: { en: "Open a supported site", bg: "Отвори поддържан сайт" },
+  welcomeStep1Body: {
+    en: "Go to mobile.bg or cars.bg. The extension wakes up automatically — no toolbar clicking needed.",
+    bg: "Отиди на mobile.bg или cars.bg. Разширението се събужда автоматично — без нужда от клик в лентата.",
+  },
+  welcomeStep2Title: { en: "Run a search", bg: "Направи търсене" },
+  welcomeStep2Body: {
+    en: "Pick a make, model, and any filters you want. Use the site's normal search form.",
+    bg: "Избери марка, модел и каквито филтри искаш. Използвай обичайното търсене на сайта.",
+  },
+  welcomeStep3Title: { en: "Read the verdict", bg: "Прочети присъдата" },
+  welcomeStep3Body: {
+    en: "The Джамбаз panel slides in on the right with median, distribution, and a flag on every listing — under, fair, over, or outlier.",
+    bg: "Панелът на Джамбаз се появява отдясно с медиана, разпределение и флаг на всяка обява — под, справедлива, над или аутлайер.",
+  },
+
+  welcomePrivacyKicker: { en: "Local by design", bg: "Локално по подразбиране" },
+  welcomePrivacyTitle: { en: "Your searches stay on your machine", bg: "Търсенията остават на твоя компютър" },
+  welcomePrivacyBody: {
+    en: "Джамбаз reads listings only from the page you're already viewing. Nothing is sent to third parties — no tracking, no accounts, no ads.",
+    bg: "Джамбаз чете обяви само от страницата, която вече разглеждаш. Нищо не се изпраща до трети страни — без проследяване, без акаунти, без реклами.",
+  },
+  welcomePrivacyBullet1: { en: "No accounts or signup", bg: "Без акаунти или регистрация" },
+  welcomePrivacyBullet2: { en: "No tracking pixels", bg: "Без проследяващи пиксели" },
+  welcomePrivacyBullet3: { en: "Stats computed locally", bg: "Статистиката се смята локално" },
+
+  welcomeFooterTip: {
+    en: "Tip: pin Джамбаз in the Chrome toolbar for one-click access to combined stats.",
+    bg: "Съвет: закачи Джамбаз в лентата на Chrome за бърз достъп до обединената статистика.",
+  },
+  welcomeGetStarted: { en: "Get started", bg: "Започни" },
+
   // Price my car tab
   priceMyCar: { en: "Price my car", bg: "Оцени моята" },
   yourCar: { en: "Your car", bg: "Вашата кола" },
