@@ -143,6 +143,9 @@ const translations = {
   optionalShort: { en: "opt.", bg: "опц." },
   confidenceLabel: { en: "Confidence", bg: "Доверие" },
 
+  // Share
+  share: { en: "Share", bg: "Сподели" },
+
   // Settings
   settingsTitle: { en: "Settings", bg: "Настройки" },
   settingsBehavior: { en: "Behavior", bg: "Поведение" },

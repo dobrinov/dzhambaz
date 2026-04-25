@@ -29,7 +29,7 @@ import {
   DEFAULT_INPUTS,
   estimateCarPrice,
 } from "~shared/estimate"
-import { PANEL_CSS } from "./panel-styles"
+import { PANEL_CSS } from "~shared/panel-styles"
 import {
   type Verdict,
   type Histogram,
@@ -41,7 +41,7 @@ import {
   verdictFor,
   pricePct,
   sortedMedian,
-} from "./panel-helpers"
+} from "~shared/panel-helpers"
 
 export const config: PlasmoCSConfig = {
   matches: ["*://www.mobile.bg/*", "*://www.cars.bg/*"],
@@ -72,6 +72,8 @@ const storage = new Storage({ area: "local" })
 const DELAY_MS = 300
 const CROSS_SITE_MAX_PAGES = 50
 const VISIBLE_LISTINGS = 100
+const SHARE_URL =
+  "https://chromewebstore.google.com/detail/%D0%B4%D0%B6%D0%B0%D0%BC%D0%B1%D0%B0%D0%B7/kkophgnekddlppofhboagediccplblgn"
 
 function detectSite(): "mobile.bg" | "cars.bg" | null {
   const host = window.location.hostname
@@ -544,6 +546,18 @@ export default function MarketPanel() {
         <div className="dbz-head-actions">
           <button className="dbz-lang" onClick={toggleLang}>
             {lang === "en" ? "BG" : "EN"}
+          </button>
+          <button
+            className="dbz-hide-btn"
+            title={t("share", lang)}
+            onClick={() => window.open(SHARE_URL, "_blank", "noopener,noreferrer")}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
           </button>
           <button
             className="dbz-hide-btn"

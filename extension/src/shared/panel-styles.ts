@@ -71,7 +71,7 @@ export const PANEL_CSS = `
       flex-shrink: 0;
     }
     .dbz-brand {
-      font-family: 'Caveat', cursive;
+      font-family: -apple-system, "system-ui", "Segoe UI", Inter, sans-serif;
       font-weight: 700;
       display: inline-block;
       transform: translateY(0.04em);
