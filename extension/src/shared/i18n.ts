@@ -47,6 +47,29 @@ const translations = {
     bg: "Няма данни. Отворете страница с резултати от търсене на автомобили.",
   },
 
+  // Popup guidance states
+  popupGuideStep: { en: "Step", bg: "Стъпка" },
+  popupGuideOpenSiteEyebrow: { en: "Get started", bg: "Да започнем" },
+  popupGuideOpenSiteTitle: {
+    en: "Open mobile.bg or cars.bg",
+    bg: "Отвори mobile.bg или cars.bg",
+  },
+  popupGuideOpenSiteBody: {
+    en: "Джамбаз reads listings from these sites. Open one and run a search to see real market prices.",
+    bg: "Джамбаз чете обяви от тези сайтове. Отвори единия и направи търсене, за да видиш реалните пазарни цени.",
+  },
+  popupGuideSearchEyebrow: { en: "Almost there", bg: "Почти готово" },
+  popupGuideSearchTitle: { en: "Run a search", bg: "Направи търсене" },
+  popupGuideSearchBody: {
+    en: "Pick a make, model, and filters on this page. The Джамбаз panel opens on the right with stats and price flags.",
+    bg: "Избери марка, модел и филтри на тази страница. Панелът на Джамбаз се отваря отдясно със статистика и флагове за цени.",
+  },
+  popupScanningTitle: { en: "Scanning…", bg: "Сканиране…" },
+  popupScanningBody: {
+    en: "Reading listings from this search. Stats will appear here in a moment.",
+    bg: "Чета обявите от това търсене. Статистиката ще се появи след малко.",
+  },
+
   // Price my car tab
   priceMyCar: { en: "Price my car", bg: "Оцени моята" },
   yourCar: { en: "Your car", bg: "Вашата кола" },
