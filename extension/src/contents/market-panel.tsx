@@ -1030,16 +1030,16 @@ function ListingsTab({
     <>
       <div className="dbz-toolbar">
         <span className="dbz-eyebrow" style={{ marginRight: 4 }}>{t("sort", lang)}</span>
-        <SortBtn active={sortKey === "deal"} dir={sortKey === "deal" ? sortDir : null} onClick={() => onSelectSort("deal")}>
+        <SortBtn active={sortKey === "deal"} dir={sortKey === "deal" ? sortDir : DEFAULT_SORT_DIR.deal} onClick={() => onSelectSort("deal")}>
           {t("sortDeal", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "price"} dir={sortKey === "price" ? sortDir : null} onClick={() => onSelectSort("price")}>
+        <SortBtn active={sortKey === "price"} dir={sortKey === "price" ? sortDir : DEFAULT_SORT_DIR.price} onClick={() => onSelectSort("price")}>
           {t("price", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "year"} dir={sortKey === "year" ? sortDir : null} onClick={() => onSelectSort("year")}>
+        <SortBtn active={sortKey === "year"} dir={sortKey === "year" ? sortDir : DEFAULT_SORT_DIR.year} onClick={() => onSelectSort("year")}>
           {t("year", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "mileage"} dir={sortKey === "mileage" ? sortDir : null} onClick={() => onSelectSort("mileage")}>
+        <SortBtn active={sortKey === "mileage"} dir={sortKey === "mileage" ? sortDir : DEFAULT_SORT_DIR.mileage} onClick={() => onSelectSort("mileage")}>
           {t("mileage", lang)}
         </SortBtn>
       </div>
@@ -1124,7 +1124,7 @@ function SortBtn({
   children,
 }: {
   active: boolean
-  dir: SortDir | null
+  dir: SortDir
   onClick: () => void
   children: React.ReactNode
 }) {
@@ -1133,7 +1133,9 @@ function SortBtn({
       className={`dbz-sortbtn ${active ? "dbz-sortbtn-active" : ""}`}
       onClick={onClick}>
       {children}
-      {active && dir && <span className="dbz-sortbtn-arrow">{dir === "desc" ? " ↓" : " ↑"}</span>}
+      <span className={`dbz-sortbtn-arrow ${active ? "active" : ""}`}>
+        {dir === "desc" ? "↓" : "↑"}
+      </span>
     </button>
   )
 }

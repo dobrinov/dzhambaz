@@ -493,12 +493,24 @@ export const PANEL_CSS = `
       background: transparent; color: #94a3b8;
       font-size: 11px; font-weight: 500; cursor: pointer;
       font-family: inherit;
+      display: inline-flex; align-items: center; gap: 4px;
     }
     .dbz-sortbtn:hover { color: #e2e8f0; border-color: #475569; }
+    .dbz-sortbtn:hover .dbz-sortbtn-arrow { opacity: 0.85; }
     .dbz-sortbtn-active {
       border-color: rgba(56,189,248,0.4);
       background: rgba(56,189,248,0.1);
       color: #38bdf8;
+    }
+    .dbz-sortbtn-arrow {
+      display: inline-block;
+      font-size: 10px; line-height: 1;
+      opacity: 0.4;
+      transition: opacity 0.12s ease;
+    }
+    .dbz-sortbtn-arrow.active {
+      opacity: 1;
+      font-weight: 700;
     }
 
     /* ── Listing row ── */
