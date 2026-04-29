@@ -58,6 +58,14 @@ export const getStyle = () => {
 
 type Tab = "stats" | "listings" | "price"
 type SortKey = "deal" | "price" | "year" | "mileage"
+type SortDir = "asc" | "desc"
+
+const DEFAULT_SORT_DIR: Record<SortKey, SortDir> = {
+  deal: "desc",   // best first
+  price: "asc",   // cheapest first
+  year: "desc",   // newest first
+  mileage: "asc", // lowest km first
+}
 
 interface SiteCrawlProgress {
   site: "mobile.bg" | "cars.bg"
@@ -163,6 +171,16 @@ export default function MarketPanel() {
   const [currentProgress, setCurrentProgress] = useState<SiteCrawlProgress | null>(null)
   const [otherProgress, setOtherProgress] = useState<SiteCrawlProgress | null>(null)
   const [sortKey, setSortKey] = useState<SortKey>("deal")
+  const [sortDir, setSortDir] = useState<SortDir>(DEFAULT_SORT_DIR.deal)
+
+  function selectSort(key: SortKey) {
+    if (key === sortKey) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"))
+    } else {
+      setSortKey(key)
+      setSortDir(DEFAULT_SORT_DIR[key])
+    }
+  }
   const [listingFilter, setListingFilter] = useState<"all" | "deals" | "outliers">("all")
   const [showAll, setShowAll] = useState(false)
   const [filters, setFilters] = useState<SearchFilters | null>(null)
@@ -258,20 +276,23 @@ export default function MarketPanel() {
     }
     arr.sort((a, b) => {
       if (sortKey === "deal") {
+        // desc = best first (low rank, low price tiebreak); asc = worst first.
         const va = verdictByKey.get(`${a.source}-${a.id}`) ?? "fair"
         const vb = verdictByKey.get(`${b.source}-${b.id}`) ?? "fair"
+        const sign = sortDir === "desc" ? 1 : -1
         const d = verdictRank[va] - verdictRank[vb]
-        if (d !== 0) return d
-        return (a.priceEur ?? Infinity) - (b.priceEur ?? Infinity)
+        if (d !== 0) return d * sign
+        return ((a.priceEur ?? Infinity) - (b.priceEur ?? Infinity)) * sign
       }
       let aVal: number | null, bVal: number | null
       if (sortKey === "price") { aVal = a.priceEur; bVal = b.priceEur }
-      else if (sortKey === "year") { aVal = b.year; bVal = a.year }   // year: newest first
-      else { aVal = a.mileageKm; bVal = b.mileageKm }                 // mileage: lowest first
-      return (aVal ?? Infinity) - (bVal ?? Infinity)
+      else if (sortKey === "year") { aVal = a.year; bVal = b.year }
+      else { aVal = a.mileageKm; bVal = b.mileageKm }
+      const sign = sortDir === "asc" ? 1 : -1
+      return ((aVal ?? Infinity) - (bVal ?? Infinity)) * sign
     })
     return arr
-  }, [allListings, sortKey, listingFilter, verdictByKey])
+  }, [allListings, sortKey, sortDir, listingFilter, verdictByKey])
 
   const visibleListings = showAll ? sortedListings : sortedListings.slice(0, VISIBLE_LISTINGS)
 
@@ -661,7 +682,8 @@ export default function MarketPanel() {
                 verdicts={verdictByKey}
                 stats={combinedStats?.price ?? null}
                 sortKey={sortKey}
-                setSortKey={setSortKey}
+                sortDir={sortDir}
+                onSelectSort={selectSort}
                 filter={listingFilter}
                 setFilter={setListingFilter}
                 dealCount={dealCount}
@@ -973,7 +995,8 @@ function ListingsTab({
   verdicts,
   stats,
   sortKey,
-  setSortKey,
+  sortDir,
+  onSelectSort,
   filter,
   setFilter,
   dealCount,
@@ -989,7 +1012,8 @@ function ListingsTab({
   verdicts: Map<string, Verdict>
   stats: MarketStats["price"]
   sortKey: SortKey
-  setSortKey: (k: SortKey) => void
+  sortDir: SortDir
+  onSelectSort: (k: SortKey) => void
   filter: "all" | "deals" | "outliers"
   setFilter: (f: "all" | "deals" | "outliers") => void
   dealCount: number
@@ -1006,16 +1030,16 @@ function ListingsTab({
     <>
       <div className="dbz-toolbar">
         <span className="dbz-eyebrow" style={{ marginRight: 4 }}>{t("sort", lang)}</span>
-        <SortBtn active={sortKey === "deal"} onClick={() => setSortKey("deal")}>
+        <SortBtn active={sortKey === "deal"} dir={sortKey === "deal" ? sortDir : null} onClick={() => onSelectSort("deal")}>
           {t("sortDeal", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "price"} onClick={() => setSortKey("price")}>
+        <SortBtn active={sortKey === "price"} dir={sortKey === "price" ? sortDir : null} onClick={() => onSelectSort("price")}>
           {t("price", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "year"} onClick={() => setSortKey("year")}>
+        <SortBtn active={sortKey === "year"} dir={sortKey === "year" ? sortDir : null} onClick={() => onSelectSort("year")}>
           {t("year", lang)}
         </SortBtn>
-        <SortBtn active={sortKey === "mileage"} onClick={() => setSortKey("mileage")}>
+        <SortBtn active={sortKey === "mileage"} dir={sortKey === "mileage" ? sortDir : null} onClick={() => onSelectSort("mileage")}>
           {t("mileage", lang)}
         </SortBtn>
       </div>
@@ -1093,12 +1117,23 @@ function ListingsTab({
   )
 }
 
-function SortBtn({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+function SortBtn({
+  active,
+  dir,
+  onClick,
+  children,
+}: {
+  active: boolean
+  dir: SortDir | null
+  onClick: () => void
+  children: React.ReactNode
+}) {
   return (
     <button
       className={`dbz-sortbtn ${active ? "dbz-sortbtn-active" : ""}`}
       onClick={onClick}>
       {children}
+      {active && dir && <span className="dbz-sortbtn-arrow">{dir === "desc" ? " ↓" : " ↑"}</span>}
     </button>
   )
 }
