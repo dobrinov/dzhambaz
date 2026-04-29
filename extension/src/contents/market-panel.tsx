@@ -718,10 +718,11 @@ function EmptyState({ lang }: { lang: Lang }) {
   return (
     <div className="dbz-empty">
       <div className="dbz-empty-eyebrow">{t("emptyEyebrow", lang)}</div>
-      <h1
-        className="dbz-empty-title"
-        dangerouslySetInnerHTML={{ __html: t("emptyTitle", lang) }}
-      />
+      <h1 className="dbz-empty-title">
+        {t("emptyTitleLine1", lang)}<br />
+        <em>{t("emptyTitleAccent", lang)}</em>{t("emptyTitleAfterAccent", lang)}<br />
+        {t("emptyTitleLine3", lang)}
+      </h1>
       <div className="dbz-empty-body">
         {t("emptyBodyBefore", lang)}{" "}
         <span className="dbz-mono">mobile.bg</span>{" "}{t("emptyBodyOr", lang)}{" "}

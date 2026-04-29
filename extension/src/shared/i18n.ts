@@ -167,10 +167,10 @@ const translations = {
 
   // Empty state (new, redesigned)
   emptyEyebrow: { en: "Ready to analyze", bg: "Готов за анализ" },
-  emptyTitle: {
-    en: "Tell me what you're<br/><em>hunting</em> for, I'll<br/>find the truth.",
-    bg: "Кажи ми какво<br/><em>търсиш</em>, аз<br/>намирам истината.",
-  },
+  emptyTitleLine1: { en: "Tell me what you're", bg: "Кажи ми какво" },
+  emptyTitleAccent: { en: "hunting", bg: "търсиш" },
+  emptyTitleAfterAccent: { en: " for, I'll", bg: ", аз" },
+  emptyTitleLine3: { en: "find the truth.", bg: "намирам истината." },
   emptyBodyBefore: { en: "Open a search on", bg: "Отвори търсене в" },
   emptyBodyOr: { en: "or", bg: "или" },
   emptyBodyAfter: {
