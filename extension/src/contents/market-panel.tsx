@@ -1412,19 +1412,22 @@ function SettingsView({
       <div className="dbz-settings-section">{t("settingsBehavior", lang)}</div>
       <SettingRow
         label={t("settingAutoOpen", lang)}
-        desc={t("settingAutoOpenDesc", lang)}
+        descOn={t("settingAutoOpenDescOn", lang)}
+        descOff={t("settingAutoOpenDescOff", lang)}
         value={autoOpen}
         onChange={setAutoOpen}
       />
       <SettingRow
         label={t("settingNewTab", lang)}
-        desc={t("settingNewTabDesc", lang)}
+        descOn={t("settingNewTabDescOn", lang)}
+        descOff={t("settingNewTabDescOff", lang)}
         value={newTab}
         onChange={setNewTab}
       />
       <SettingRow
         label={t("settingOutlierAlerts", lang)}
-        desc={t("settingOutlierAlertsDesc", lang)}
+        descOn={t("settingOutlierAlertsDescOn", lang)}
+        descOff={t("settingOutlierAlertsDescOff", lang)}
         value={outlierAlerts}
         onChange={setOutlierAlerts}
       />
@@ -1432,7 +1435,8 @@ function SettingsView({
       <div className="dbz-settings-section" style={{ marginTop: 18 }}>{t("settingsData", lang)}</div>
       <SettingRow
         label={t("settingCrossSite", lang)}
-        desc={t("settingCrossSiteDesc", lang)}
+        descOn={t("settingCrossSiteDescOn", lang)}
+        descOff={t("settingCrossSiteDescOff", lang)}
         value={crossSite}
         onChange={setCrossSite}
       />
@@ -1450,13 +1454,15 @@ function SettingsView({
 }
 
 function SettingRow({
-  label, desc, value, onChange,
+  label, descOn, descOff, value, onChange,
 }: {
   label: string
-  desc?: string
+  descOn?: string
+  descOff?: string
   value: boolean
   onChange: (v: boolean) => void
 }) {
+  const desc = value ? descOn : descOff
   return (
     <div className="dbz-setting">
       <div className="dbz-setting-info">

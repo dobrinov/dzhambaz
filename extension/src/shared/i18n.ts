@@ -230,24 +230,40 @@ const translations = {
   settingsBehavior: { en: "Behavior", bg: "Поведение" },
   settingsData: { en: "Data", bg: "Данни" },
   settingAutoOpen: { en: "Auto-open on new search", bg: "Отвори при ново търсене" },
-  settingAutoOpenDesc: {
-    en: "When you change the search criteria, the drawer opens automatically.",
-    bg: "При промяна на търсенето, панелът се отваря автоматично.",
+  settingAutoOpenDescOn: {
+    en: "On — when you change make, model, or filters, the panel opens automatically.",
+    bg: "Вкл. — при смяна на марка, модел или филтри, панелът се отваря автоматично.",
+  },
+  settingAutoOpenDescOff: {
+    en: "Off — the panel stays as you left it. Open it manually with the icon.",
+    bg: "Изкл. — панелът остава както е. Отвори го ръчно с иконата.",
   },
   settingCrossSite: { en: "Scan the other site too", bg: "Сканирай и другия сайт" },
-  settingCrossSiteDesc: {
-    en: "Also crawl mobile.bg when you're on cars.bg, and vice versa.",
-    bg: "Обходи и mobile.bg когато си на cars.bg, и обратно.",
+  settingCrossSiteDescOn: {
+    en: "On — scanning both mobile.bg and cars.bg, so stats use the full sample. Slower, but more data.",
+    bg: "Вкл. — сканираме и mobile.bg, и cars.bg, статистиката е от двата. По-бавно, но повече данни.",
+  },
+  settingCrossSiteDescOff: {
+    en: "Off — only scanning the site you're on. Faster, but smaller sample.",
+    bg: "Изкл. — сканираме само сайта, който гледаш. По-бързо, но по-малко данни.",
   },
   settingNewTab: { en: "Open listings in a new tab", bg: "Обяви в нов таб" },
-  settingNewTabDesc: {
-    en: "Off — clicking a listing replaces the current tab.",
-    bg: "Изкл. — кликването зарежда обявата в текущия таб.",
+  settingNewTabDescOn: {
+    en: "On — clicking a listing opens it in a new tab. Your search stays put.",
+    bg: "Вкл. — кликването на обява я отваря в нов таб. Търсенето остава.",
+  },
+  settingNewTabDescOff: {
+    en: "Off — clicking a listing replaces the current tab. Use Back to return.",
+    bg: "Изкл. — кликването зарежда обявата в текущия таб. Назад за връщане.",
   },
   settingOutlierAlerts: { en: "Show outlier alerts", bg: "Показвай аутлайер флагове" },
-  settingOutlierAlertsDesc: {
-    en: "Highlight suspicious listings in the Stats tab.",
-    bg: "Отбелязва подозрителни обяви в таба Статистика.",
+  settingOutlierAlertsDescOn: {
+    en: "On — the Stats tab calls out listings that look like price typos or scams.",
+    bg: "Вкл. — табът Статистика откроява обяви, които приличат на грешки в цената или скам.",
+  },
+  settingOutlierAlertsDescOff: {
+    en: "Off — outliers still appear in the list, just without a separate callout.",
+    bg: "Изкл. — аутлайерите остават в списъка, но без отделен флаг.",
   },
   settingClearData: { en: "Clear cached listings", bg: "Изчисти запазените обяви" },
   settingClearDataDesc: {
