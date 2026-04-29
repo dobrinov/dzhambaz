@@ -1007,7 +1007,7 @@ function ListingsTab({
       <div className="dbz-toolbar">
         <span className="dbz-eyebrow" style={{ marginRight: 4 }}>{t("sort", lang)}</span>
         <SortBtn active={sortKey === "deal"} onClick={() => setSortKey("deal")}>
-          {t("sortDeal", lang)} ↓
+          {t("sortDeal", lang)}
         </SortBtn>
         <SortBtn active={sortKey === "price"} onClick={() => setSortKey("price")}>
           {t("price", lang)}
