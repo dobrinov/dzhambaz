@@ -168,8 +168,10 @@ export default function MarketPanel() {
   const [filters, setFilters] = useState<SearchFilters | null>(null)
   const crawlingRef = useRef(false)
   const [lang, setLang] = useStorage<Lang>("wd-lang", DEFAULT_LANG)
+  // Use chrome.storage.local — sync caps at 120 writes/minute, which slider
+  // drags blow through (each step fires onChange).
   const [estimateInputs, setEstimateInputs] = useStorage<EstimateInputs>(
-    "wd-estimate-inputs",
+    { key: "wd-estimate-inputs", instance: storage },
     DEFAULT_INPUTS
   )
 
@@ -1196,7 +1198,7 @@ function PriceTab({
       <div className="dbz-field">
         <div className="dbz-field-label">{t("urgency", lang)}</div>
         <input
-          type="range" min={0} max={100}
+          type="range" min={0} max={100} step={5}
           className="dbz-slider"
           value={inputs.urgency}
           onChange={(e) => updateInput("urgency", parseInt(e.target.value, 10))}
@@ -1211,7 +1213,7 @@ function PriceTab({
       <div className="dbz-field">
         <div className="dbz-field-label">{t("condition", lang)}</div>
         <input
-          type="range" min={0} max={100}
+          type="range" min={0} max={100} step={5}
           className="dbz-slider"
           value={inputs.condition}
           onChange={(e) => updateInput("condition", parseInt(e.target.value, 10))}
@@ -1225,7 +1227,7 @@ function PriceTab({
       <div className="dbz-field">
         <div className="dbz-field-label">{t("extras", lang)}</div>
         <input
-          type="range" min={0} max={100}
+          type="range" min={0} max={100} step={5}
           className="dbz-slider"
           value={inputs.extras}
           onChange={(e) => updateInput("extras", parseInt(e.target.value, 10))}
