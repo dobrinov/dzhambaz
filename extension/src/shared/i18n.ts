@@ -7,8 +7,8 @@ const translations = {
   stats: { en: "Stats", bg: "Статистика" },
   listings: { en: "Listings", bg: "Обяви" },
   totalListings: { en: "Total Listings", bg: "Общо обяви" },
-  medianPrice: { en: "Median Price", bg: "Медианна цена" },
-  medianKm: { en: "Median km", bg: "Медианни км" },
+  medianPrice: { en: "Typical price", bg: "Обичайна цена" },
+  medianKm: { en: "Typical mileage", bg: "Обичаен пробег" },
   priceEur: { en: "Price (EUR)", bg: "Цена (EUR)" },
   mileageKm: { en: "Mileage (km)", bg: "Пробег (км)" },
   noData: { en: "Not enough data", bg: "Недостатъчно данни" },
@@ -25,7 +25,14 @@ const translations = {
   mileage: { en: "Mileage", bg: "Пробег" },
 
   // Range chart
-  median: { en: "Median", bg: "Медиана" },
+  median: { en: "Typical", bg: "Обичайна" },
+
+  // Price zone bar (no-math UX)
+  priceZoneCheap: { en: "Cheap", bg: "Изгодна" },
+  priceZoneTypical: { en: "Typical", bg: "Обичайна" },
+  priceZoneExpensive: { en: "Expensive", bg: "Скъпа" },
+  mostListings: { en: "Most listings", bg: "Повечето обяви" },
+  showDetails: { en: "Details", bg: "Детайли" },
 
   // Market position labels
   greatDeal: { en: "Great deal", bg: "Страхотна цена" },
@@ -191,7 +198,7 @@ const translations = {
   base: { en: "Sample", bg: "База" },
   listingsShort: { en: "listings", bg: "обяви" },
   rangeShort: { en: "range", bg: "диапазон" },
-  medianYear: { en: "Median year", bg: "Медианна година" },
+  medianYear: { en: "Typical year", bg: "Обичайна година" },
 
   // Insight callout
   insightTitle: { en: "Suspicious listing", bg: "Подозрителна обява" },

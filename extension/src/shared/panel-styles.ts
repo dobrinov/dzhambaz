@@ -438,6 +438,93 @@ export const PANEL_CSS = `
     }
     .dbz-tick-emphasize .dbz-tick-val { color: #e2e8f0; font-weight: 600; }
 
+    /* ── Price zone bar (math-free thermometer) ── */
+    .dbz-zonebar {
+      margin: 4px 0 14px;
+    }
+    .dbz-zonebar-track {
+      position: relative;
+      display: flex;
+      height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .dbz-zone {
+      display: flex; align-items: center; justify-content: center;
+      min-width: 0;
+      transition: filter 0.15s ease;
+    }
+    .dbz-zone-label {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0 6px;
+      overflow: hidden; text-overflow: clip;
+    }
+    .dbz-zone-cheap {
+      background: linear-gradient(180deg, rgba(74,222,128,0.22), rgba(74,222,128,0.10));
+      color: #4ade80;
+    }
+    .dbz-zone-typical {
+      background: linear-gradient(180deg, rgba(56,189,248,0.22), rgba(56,189,248,0.10));
+      color: #7dd3fc;
+    }
+    .dbz-zone-expensive {
+      background: linear-gradient(180deg, rgba(251,191,36,0.22), rgba(251,191,36,0.08));
+      color: #fbbf24;
+    }
+    .dbz-zonebar-pin {
+      position: absolute; top: -3px; bottom: -3px;
+      width: 0; transform: translateX(-50%);
+      border-left: 2px solid #e2e8f0;
+      pointer-events: none;
+    }
+    .dbz-zonebar-pin::before {
+      content: "";
+      position: absolute; top: -5px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid #e2e8f0;
+    }
+    .dbz-zonebar-axis {
+      position: relative; height: 14px; margin-top: 6px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 10px; color: #64748b;
+    }
+    .dbz-zonebar-axis-min {
+      position: absolute; left: 0; top: 0;
+    }
+    .dbz-zonebar-axis-max {
+      position: absolute; right: 0; top: 0;
+    }
+    .dbz-zonebar-axis-mid {
+      position: absolute; top: 0;
+      transform: translateX(-50%);
+      color: #cbd5e1; font-weight: 600;
+      background: var(--panel-bg, #1e293b);
+      padding: 0 4px;
+    }
+
+    /* ── Details disclosure (hides histograms by default) ── */
+    .dbz-details-toggle {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: transparent;
+      border: 1px dashed #334155;
+      color: #64748b;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      margin: 4px 0 8px;
+    }
+    .dbz-details-toggle:hover { color: #cbd5e1; border-color: #475569; }
+    .dbz-details-chev { font-size: 9px; opacity: 0.8; }
+
     /* Your-value callout on distribution */
     .dbz-your {
       margin-top: 8px; height: 24px;

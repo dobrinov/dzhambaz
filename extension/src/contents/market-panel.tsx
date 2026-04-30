@@ -798,6 +798,7 @@ function StatsTab({
   filters: SearchFilters | null
   lang: Lang
 }) {
+  const [showDetails, setShowDetails] = useState(false)
   if (allListings.length === 0) {
     return <div className="dbz-no-data">{t("navigateToSearch", lang)}</div>
   }
@@ -841,11 +842,17 @@ function StatsTab({
           <div className="dbz-eyebrow">{t("medianPrice", lang)}</div>
           <div className="dbz-hero-value">€{fmt(stats.price.median)}</div>
           <div className="dbz-hero-sub">
-            <span>P25 <b>€{fmt(stats.price.p25)}</b></span>
-            <span>P75 <b>€{fmt(stats.price.p75)}</b></span>
-            <span>{t("rangeShort", lang)} <b>€{fmtK(stats.price.min)} – €{fmtK(stats.price.max)}</b></span>
+            <span>{t("mostListings", lang)}: <b>€{fmtK(stats.price.p25)} – €{fmtK(stats.price.p75)}</b></span>
           </div>
         </div>
+      ) : null}
+
+      {stats?.price ? (
+        <PriceZoneBar
+          stats={stats.price}
+          formatShort={(v) => "€" + fmtK(v)}
+          lang={lang}
+        />
       ) : null}
 
       <div className="dbz-ministats">
@@ -861,7 +868,17 @@ function StatsTab({
         />
       </div>
 
-      {priceHist && stats?.price && (
+      {(priceHist || kmHist) && (
+        <button
+          className="dbz-details-toggle"
+          onClick={() => setShowDetails((v) => !v)}
+          aria-expanded={showDetails}>
+          <span>{t("showDetails", lang)}</span>
+          <span className="dbz-details-chev">{showDetails ? "▴" : "▾"}</span>
+        </button>
+      )}
+
+      {showDetails && priceHist && stats?.price && (
         <Distro
           title={t("priceEur", lang)}
           hist={priceHist}
@@ -872,7 +889,7 @@ function StatsTab({
         />
       )}
 
-      {kmHist && stats?.mileage && (
+      {showDetails && kmHist && stats?.mileage && (
         <>
           <div className="dbz-divider" />
           <Distro
@@ -908,6 +925,46 @@ function MiniStat({ label, value, hint }: { label: string; value: string; hint: 
       <div className="dbz-ministat-label">{label}</div>
       <div className="dbz-ministat-val">{value}</div>
       {hint && <div className="dbz-ministat-hint">{hint}</div>}
+    </div>
+  )
+}
+
+function PriceZoneBar({
+  stats,
+  formatShort,
+  lang,
+}: {
+  stats: { min: number; max: number; p25: number; p75: number; median: number }
+  formatShort: (v: number) => string
+  lang: Lang
+}) {
+  const total = (stats.max - stats.min) || 1
+  const cheapPct = ((stats.p25 - stats.min) / total) * 100
+  const typicalPct = ((stats.p75 - stats.p25) / total) * 100
+  const expensivePct = ((stats.max - stats.p75) / total) * 100
+  const medianPct = ((stats.median - stats.min) / total) * 100
+
+  return (
+    <div className="dbz-zonebar">
+      <div className="dbz-zonebar-track">
+        <div className="dbz-zone dbz-zone-cheap" style={{ width: `${cheapPct}%` }}>
+          <span className="dbz-zone-label">{t("priceZoneCheap", lang)}</span>
+        </div>
+        <div className="dbz-zone dbz-zone-typical" style={{ width: `${typicalPct}%` }}>
+          <span className="dbz-zone-label">{t("priceZoneTypical", lang)}</span>
+        </div>
+        <div className="dbz-zone dbz-zone-expensive" style={{ width: `${expensivePct}%` }}>
+          <span className="dbz-zone-label">{t("priceZoneExpensive", lang)}</span>
+        </div>
+        <div className="dbz-zonebar-pin" style={{ left: `${medianPct}%` }} aria-hidden="true" />
+      </div>
+      <div className="dbz-zonebar-axis">
+        <span className="dbz-zonebar-axis-min">{formatShort(stats.min)}</span>
+        <span className="dbz-zonebar-axis-mid" style={{ left: `${medianPct}%` }}>
+          {formatShort(stats.median)}
+        </span>
+        <span className="dbz-zonebar-axis-max">{formatShort(stats.max)}</span>
+      </div>
     </div>
   )
 }
@@ -958,9 +1015,9 @@ function Distro({
       </div>
       <div className="dbz-hist-base" />
       <div className="dbz-axis">
-        <AxisTick pct={pct(stats.p25)} label="P25" value={formatShort(stats.p25)} />
+        <AxisTick pct={0} label="" value={formatShort(hist.min)} />
         <AxisTick pct={pct(stats.median)} label={t("median", lang)} value={formatShort(stats.median)} emphasize />
-        <AxisTick pct={pct(stats.p75)} label="P75" value={formatShort(stats.p75)} />
+        <AxisTick pct={100} label="" value={formatShort(hist.max)} />
       </div>
     </div>
   )
