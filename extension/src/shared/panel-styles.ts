@@ -351,34 +351,7 @@ export const PANEL_CSS = `
     }
     .dbz-hero-sub b { color: #94a3b8; font-weight: 500; }
 
-    /* ── Mini stats ── */
-    .dbz-ministats {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-      margin-bottom: 14px;
-    }
-    .dbz-ministat {
-      padding: 10px 12px 11px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid #334155;
-      border-radius: 9px;
-    }
-    .dbz-ministat-label {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 9px; color: #64748b;
-      text-transform: uppercase; letter-spacing: 0.06em;
-      margin-bottom: 4px; font-weight: 600;
-    }
-    .dbz-ministat-val {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 16px; font-weight: 500; color: #e2e8f0;
-      letter-spacing: -0.01em;
-    }
-    .dbz-ministat-hint {
-      font-family: "JetBrains Mono", ui-monospace, monospace;
-      font-size: 10px; color: #475569; margin-top: 2px;
-    }
-
-    /* ── Histogram distribution block ── */
+/* ── Histogram distribution block ── */
     .dbz-distro {
       margin-top: 8px; margin-bottom: 8px;
     }

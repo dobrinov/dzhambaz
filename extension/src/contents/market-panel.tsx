@@ -40,7 +40,6 @@ import {
   buildHistogram,
   verdictFor,
   pricePct,
-  sortedMedian,
 } from "~shared/panel-helpers"
 
 export const config: PlasmoCSConfig = {
@@ -806,7 +805,6 @@ function StatsTab({
   const years = allListings.map((l) => l.year).filter((y): y is number => y != null && y > 1900)
   const yearMin = years.length ? Math.min(...years) : null
   const yearMax = years.length ? Math.max(...years) : null
-  const yearMedian = years.length ? sortedMedian(years) : null
 
   return (
     <>
@@ -854,19 +852,6 @@ function StatsTab({
           lang={lang}
         />
       ) : null}
-
-      <div className="dbz-ministats">
-        <MiniStat
-          label={t("medianKm", lang)}
-          value={stats?.mileage ? fmt(stats.mileage.median) : "—"}
-          hint={stats?.mileage ? `${fmtK(stats.mileage.min)} – ${fmtK(stats.mileage.max)}` : ""}
-        />
-        <MiniStat
-          label={t("medianYear", lang)}
-          value={yearMedian != null ? String(yearMedian) : "—"}
-          hint={yearMin && yearMax ? `${yearMin} – ${yearMax}` : ""}
-        />
-      </div>
 
       {(priceHist || kmHist) && (
         <button
@@ -918,16 +903,6 @@ function StatsTab({
   )
 }
 
-
-function MiniStat({ label, value, hint }: { label: string; value: string; hint: string }) {
-  return (
-    <div className="dbz-ministat">
-      <div className="dbz-ministat-label">{label}</div>
-      <div className="dbz-ministat-val">{value}</div>
-      {hint && <div className="dbz-ministat-hint">{hint}</div>}
-    </div>
-  )
-}
 
 function PriceZoneBar({
   stats,

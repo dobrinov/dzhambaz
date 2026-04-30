@@ -8,7 +8,6 @@ const translations = {
   listings: { en: "Listings", bg: "Обяви" },
   totalListings: { en: "Total Listings", bg: "Общо обяви" },
   medianPrice: { en: "Typical price", bg: "Обичайна цена" },
-  medianKm: { en: "Typical mileage", bg: "Обичаен пробег" },
   priceEur: { en: "Price (EUR)", bg: "Цена (EUR)" },
   mileageKm: { en: "Mileage (km)", bg: "Пробег (км)" },
   noData: { en: "Not enough data", bg: "Недостатъчно данни" },
@@ -198,7 +197,6 @@ const translations = {
   base: { en: "Sample", bg: "База" },
   listingsShort: { en: "listings", bg: "обяви" },
   rangeShort: { en: "range", bg: "диапазон" },
-  medianYear: { en: "Typical year", bg: "Обичайна година" },
 
   // Insight callout
   insightTitle: { en: "Suspicious listing", bg: "Подозрителна обява" },
