@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/en/</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/privacy.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/en/privacy.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/privacy.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/terms.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/en/terms.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/terms.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/terms.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/support.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/support.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/support.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://dobrinov.github.io/dzhambaz/en/support.html</loc>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://dobrinov.github.io/dzhambaz/support.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://dobrinov.github.io/dzhambaz/en/support.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://dobrinov.github.io/dzhambaz/support.html"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

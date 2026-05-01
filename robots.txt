@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dobrinov.github.io/dzhambaz/sitemap.xml
